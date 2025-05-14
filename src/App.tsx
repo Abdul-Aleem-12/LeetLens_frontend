@@ -18,12 +18,11 @@ function App() {
       />
 
       {/* Content Section */}
-      <div className="relative z-10 flex flex-col flex-grow">
+      <main className="relative z-10 flex flex-col flex-grow">
         <Navbar />
         <Intro />
         <Searchbar />
-      </div>
-
+      </main>
       {/* Footer pushed to bottom */}
       <Footer />
     </div>
