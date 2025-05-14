@@ -6,7 +6,7 @@ import Footer from './Footer'
 
 function App() {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-black relative overflow-hidden">
       <div
         className="absolute top-1/4 left-1/2 transform -translate-x-1/2 
                   w-[300px] h-[300px] blur-[100px] opacity-30 

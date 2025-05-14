@@ -3,7 +3,7 @@ import { Search, ArrowRight } from 'lucide-react';
 const Searchbar = () => {
     return (
         <div className="flex flex-col xl:flex-row items-center w-full max-w-2xl mx-auto mt-6 px-4">
-            <div className="relative w-full relative top-15 md:top-20 xl:top-45">
+            <div className=" w-full relative top-15 md:top-20 xl:top-45">
                 <input
                 type="text"
                 placeholder="Enter your leetcode username..."
