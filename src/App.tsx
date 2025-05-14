@@ -15,7 +15,7 @@ function App() {
                   lg:w-[600px] lg:h-[600px] lg:blur-[150px]
                   bg-purple-700 pointer-events-none z-0"
       />
-        <main className="relative z-10 flex flex-col">  
+        <main className="relative z-10 flex flex-col min-h-screen">  
           <Navbar />
           <Intro />
           <Searchbar />
