@@ -6,7 +6,8 @@ import Footer from './Footer'
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-black relative overflow-hidden">
+    <div className="flex flex-col style={{ height: 'calc(var(--vh, 1vh) * 100)' }}
+ bg-black relative overflow-hidden">
       {/* Blurred Background */}
       <div
         className="absolute top-1/4 left-1/2 transform -translate-x-1/2 

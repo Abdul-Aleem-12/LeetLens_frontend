@@ -4,10 +4,6 @@
 body {
   overflow-x: hidden;
 }
-body,html{
-  padding: 0px;
-  margin: 0px;
-}
 .raleway-st {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
@@ -18,6 +14,22 @@ body,html{
   font-family: 'Clash Grotesk', sans-serif;
 }
 html, body  , #root {
+  height: 100%;
+}
+:root {
+  --vh: 100%;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --vh: 100vh;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
   height: 100%;
 }
 
