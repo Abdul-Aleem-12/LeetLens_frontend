@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600,700&display=swap');
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
 body {
   overflow-x: hidden;
 }
@@ -14,22 +20,6 @@ body {
   font-family: 'Clash Grotesk', sans-serif;
 }
 html, body  , #root {
-  height: 100%;
-}
-:root {
-  --vh: 100%;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --vh: 100vh;
-  }
-}
-
-html,
-body {
-  padding: 0;
-  margin: 0;
   height: 100%;
 }
 
