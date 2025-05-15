@@ -14,7 +14,8 @@ function App() {
                   sm:w-[400px] sm:h-[400px] sm:blur-[120px]
                   md:w-[500px] md:h-[500px] md:blur-[140px]
                   lg:w-[600px] lg:h-[600px] lg:blur-[150px]
-                  bg-purple-700 pointer-events-none z-0"
+                  bg-purple-700 pointer-events-none z-0
+                  overflow-hidden"
       />
 
       {/* Content Section */}

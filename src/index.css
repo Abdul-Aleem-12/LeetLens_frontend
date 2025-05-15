@@ -17,3 +17,7 @@ body,html{
 .clash-grotesk {
   font-family: 'Clash Grotesk', sans-serif;
 }
+html, body  , #root {
+  height: 100%;
+}
+
