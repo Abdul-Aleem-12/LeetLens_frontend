@@ -16,6 +16,12 @@ body {
   font-weight: 500;
   font-style: normal;
 }
+.raleway-st-bold {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
 .clash-grotesk {
   font-family: 'Clash Grotesk', sans-serif;
 }
