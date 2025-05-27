@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, ArrowRight } from 'lucide-react';
-import helper from '../src/assets/username.jpg';
+import demo from '../../demo.jpg';
 
 const Searchbar = () => {
   const [username, setUsername] = useState('');
@@ -41,7 +41,8 @@ const Searchbar = () => {
           <span>You can find your Username here in your Leetcode profile ⇓</span>
         </div>
         <div>
-          <img src={helper} alt="image of username" className="z-0 h-80 w-80 relative mt-40 mb-3 xl:mt-60" />
+          <img src={demo}
+       alt="image of username" className="z-0 h-80 w-80 relative mt-40 mb-3 xl:mt-60" />
         </div>
       </div>
     </div>
