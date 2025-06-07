@@ -1,45 +1,49 @@
-import { useEffect,useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Analyze = () => {
-    let name: string = "abdul";
-    const {username} = useParams();
-    const [data, setData] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state?.data;
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-     useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/${username}`);
-        setData(response.data);
-        console.log(response.data);
-      } catch (err) {
-        const error = err as any;
-        if (error.response) {
-          // Server responded with a status code out of 2xx range
-          if (error.response.status === 400) {
-            console.error("Bad Request: Username not found.");
-          } else {
-            console.error(`Server responded with status ${error.response.status}: ${error.response.data}`);
-          }
-        } else if (error.request) {
-          // Request was made but no response received
-          console.error("Could not connect to the server. Please check your internet connection or server status.");
-        } else {
-          // Something else happened
-          console.error("An unexpected error occurred:", error.message);
-        }
+  useEffect(() => {
+    if (!data) {
+      navigate('/', { replace: true });
+    }
+  }, [data, navigate]);
+
+  // Typing animation effect
+  useEffect(() => {
+    if (data) {
+      const username = data.profile.realName;
+      const fullText = `Hello ${username}`;
+      
+      if (currentIndex < fullText.length) {
+        const timeout = setTimeout(() => {
+          setDisplayText(fullText.substring(0, currentIndex + 1));
+          setCurrentIndex(currentIndex + 1);
+        }, 80); // Adjust typing speed here (milliseconds)
+
+        return () => clearTimeout(timeout);
       }
-    };
+    }
+  }, [currentIndex, data]);
 
-    fetchData();
-  }, [username]);
+  if (!data) return null;
 
-    return (
-        <div className="grid">
-            <h1 className="text-white text-5xl" >Hello {name}</h1>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div className="grid grid-col mt-10 pl-10 text-7xl justify-start raleway-st-bold">
+        <h1 className="text-white text-5xl">
+          {displayText}
+          <span className="animate-pulse">|</span> {/* Cursor effect */}
+        </h1>
+        {/* Rest of your analysis */}
+      </div>
+    </div>
+  );
+};
+
 export default Analyze;

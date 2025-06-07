@@ -28,7 +28,7 @@ function App() {
         <Navbar /> 
         <Routes>
           <Route path="/" element={[<Intro />,<Searchbar />]} />
-          <Route path="/analyze/:username" element={[<Analyze />]} />
+          <Route path="/analyze/:username" element={<Analyze />} />
         </Routes>
         <Footer />
       </main>

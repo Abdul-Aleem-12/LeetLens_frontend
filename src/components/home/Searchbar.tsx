@@ -76,10 +76,11 @@ const Searchbar = () => {
           <input
             key={inputKey}
             type="text"
+            spellCheck={false}
             placeholder={error || "Enter your leetcode username..."}
-            className={`w-full pl-12 lg:pr-7 py-2.5 rounded-2xl border ${
-              error ? 'border-red-600 placeholder-red-500 text-md' : 'border-gray-300'
-            } focus:outline-none focus:ring-3 focus:ring-purple-500 bg-white text-black text:md md:text-2xl`}
+            className={` clash-grotesk w-full pl-12 lg:pr-7 py-2.5 rounded-2xl border-2 placeholder-rale ${
+              error ? 'border-red-600 placeholder-red-500 text-md' : 'border-white'
+            } focus:outline-none focus:border-purple-600 bg-white text-black text:md md:text-2xl`}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={submitting}
@@ -91,8 +92,8 @@ const Searchbar = () => {
           <button
             type="submit"
             disabled={submitting}
-            className={`clash-grotesk flex items-center gap-2 relative px-5 py-2 xl:px-3 xl:py-3.5 xl:top-0 md:top-10 top-6 rounded-2xl font-semibold text-lg md:text-xl shadow-md transition-all duration-300 cursor-pointer
-              ${submitting ? 'bg-purple-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white hover:shadow-purple-500/40 hover:scale-105'}`}
+            className={` h-14 clash-grotesk flex items-center gap-2 relative px-5 py-2 xl:px-3 xl:py-3.5 xl:top-0 md:top-10 top-6 rounded-xl font-semibold text-lg md:text-xl shadow-md transition-all duration-300 cursor-pointer
+              ${submitting ? 'bg-purple-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white hover:shadow-purple-500/40 hover:scale-101 '}`}
           >
             {submitting ? (
               <>

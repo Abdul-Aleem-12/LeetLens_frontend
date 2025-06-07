@@ -10,6 +10,11 @@ body {
 body {
   overflow-x: hidden;
 }
+.placeholder-rale::placeholder {
+  font-family: "Raleway", sans-serif;
+  /* font-weight: 600;           optional */
+  /* font-size: 1.25rem;         optional */
+}
 .raleway-st {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
