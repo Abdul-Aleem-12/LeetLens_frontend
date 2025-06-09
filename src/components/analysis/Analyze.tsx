@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Diffculty_PieChart from './difficultyPie';
 import Greeting from './greet';
-import Plot from 'react-plotly.js';
 import type { LeetCodeData } from './LeetCodeData';
 
 const Analyze = () => {
