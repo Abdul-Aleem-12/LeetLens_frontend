@@ -30,6 +30,7 @@ const Searchbar = () => {
     try {
       setSubmitting(true);
       const res = await axios.get(`${backendUrl}/${username.trim()}`, { timeout: 5000 });
+      console.log(res.data);
       setError('');
       navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
     } catch (err: any) {

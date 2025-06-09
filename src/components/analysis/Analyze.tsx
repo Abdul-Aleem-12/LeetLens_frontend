@@ -1,46 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Diffculty_PieChart from './difficultyPie';
+import Greeting from './greet';
+import Plot from 'react-plotly.js';
+import type { LeetCodeData } from './LeetCodeData';
 
 const Analyze = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state?.data;
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-
+  const data = (location.state?.data ?? null) as LeetCodeData | null;
   useEffect(() => {
     if (!data) {
       navigate('/', { replace: true });
     }
   }, [data, navigate]);
 
-  // Typing animation effect
-  useEffect(() => {
-    if (data) {
-      const username = data.profile.realName;
-      const fullText = `Hello ${username}`;
-      
-      if (currentIndex < fullText.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(fullText.substring(0, currentIndex + 1));
-          setCurrentIndex(currentIndex + 1);
-        }, 80); // Adjust typing speed here (milliseconds)
-
-        return () => clearTimeout(timeout);
-      }
-    }
-  }, [currentIndex, data]);
-
   if (!data) return null;
+  const difficultyStats = {
+    easy: data.easySolved || 0,
+    medium: data.mediumSolved || 0,
+    hard: data.hardSolved || 0,
+    total: data.totalSolved || 0,
+  };
 
   return (
     <div>
       <div className="grid grid-col mt-10 pl-10 text-7xl justify-start raleway-st-bold">
-        <h1 className="text-white text-5xl">
-          {displayText}
-          <span className="animate-pulse">|</span> {/* Cursor effect */}
-        </h1>
-        {/* Rest of your analysis */}
+        <Greeting username={data.profile.realName}/>
+        <div className='flex flex-row xl:flex-col mt-10 gap-3 ml-3 mr-3'>
+          <Diffculty_PieChart difficultyData={difficultyStats} />
+        </div>
       </div>
     </div>
   );
