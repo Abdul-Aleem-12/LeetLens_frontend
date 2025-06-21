@@ -5,7 +5,7 @@ type DifficultyData = {
   easy: number;
   medium: number;
   hard: number;
-  total: number; // used for reference, not in the pie
+  total: number;
 };
 
 interface Props {
@@ -22,28 +22,45 @@ function Difficulty_PieChart({ difficultyData }: Props) {
           type: 'pie',
           values: [easy, medium, hard],
           labels: ['Easy', 'Medium', 'Hard'],
-          textinfo: 'label+percent',
+          textinfo: 'label+value',
           hoverinfo: 'label+value+percent',
+          textposition: 'outside',
+          // pull: [0.05, 0.05, 0.05],
           marker: {
-            colors: ['#a3e4d7', '#f9e79f', '#f1948a'], // pastel shades
+            colors: ['#76D7C4', '#F7DC6F', '#EC7063'], // Slightly deeper pastel
             line: {
               color: '#ffffff',
               width: 2
             }
           },
-          hole: 0.4, // for a donut-style chart
+          hole: 0.6, // Larger hole for more pronounced donut
         },
       ]}
       layout={{
         title: {
           text: 'Difficulty Distribution',
-          font: { size: 20, color: '#fff' },
+          font: { size: 22, color: '#333' },
+          x: 0.5,
+          xanchor: 'center'
         },
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)',
+        annotations: [
+          {
+            font: {
+              size: 16
+            },
+            showarrow: false,
+            text: 'Total Solved <br>' + difficultyData.total,
+            x: 0.5,
+            y: 0.5,
+            xanchor: 'center',
+            yanchor: 'middle'
+          }
+        ],
+        paper_bgcolor: 'rgba(0,0,0,0.36)',
+        plot_bgcolor: 'rgba(0,0,0,0)',  
         showlegend: true,
         legend: {
-          font: { color: '#fff' },
+          font: { color: '#333' },
           orientation: 'h',
           x: 0.2,
           y: -0.1
