@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Diffculty_PieChart from './difficultyPie';
 import Greeting from './greet';
-import type { LeetCodeData } from './LeetCodeData';
+import Badges from './badges';
+import Summary from './Summary';
+import type { LeetCodeData } from '../../LeetCodeData';
+
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -24,11 +27,14 @@ const Analyze = () => {
 
   return (
     <div>
-      <div className="grid grid-col mt-10 pl-10 text-7xl justify-start raleway-st-bold">
+      <div className="grid grid-col mt-10 lg:pl-10 px-2 text-7xl justify-start raleway-st-bold">
         <Greeting username={data.profile.realName}/>
+        <Summary data={data} />
         <div className='flex flex-row xl:flex-col mt-10 gap-3 ml-3 mr-3'>
           <Diffculty_PieChart difficultyData={difficultyStats} />
+          
         </div>
+        <Badges badges={data.badges} />
       </div>
     </div>
   );

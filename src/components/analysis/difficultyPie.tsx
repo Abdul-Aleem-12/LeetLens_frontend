@@ -25,6 +25,11 @@ function Difficulty_PieChart({ difficultyData }: Props) {
           textinfo: 'label+value',
           hoverinfo: 'label+value+percent',
           textposition: 'outside',
+          textfont: {
+            family: 'Arial, sans-serif',
+            color: '#hfffff',
+            size: 16,
+          },
           // pull: [0.05, 0.05, 0.05],
           marker: {
             colors: ['#76D7C4', '#F7DC6F', '#EC7063'], // Slightly deeper pastel
@@ -39,7 +44,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
       layout={{
         title: {
           text: 'Difficulty Distribution',
-          font: { size: 22, color: '#333' },
+          font: { size: 24, color: '#333' },
           x: 0.5,
           xanchor: 'center'
         },
@@ -66,7 +71,20 @@ function Difficulty_PieChart({ difficultyData }: Props) {
           y: -0.1
         },
       }}
-      config={{ responsive: true }}
+      config={{
+        responsive: true,
+        displayModeBar: true,
+        modeBarButtonsToRemove: [
+          'zoom2d', 'pan2d', 'select2d', 'lasso2d',
+          'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d',
+          'hoverClosestCartesian', 'hoverCompareCartesian',
+          'toggleSpikelines', 'sendDataToCloud',  
+          'resetViews',
+        ],
+        modeBarButtonsToAdd: ['toImage'],
+        displaylogo: false, 
+      }}
+      
       style={{ width: '100%', height: '100%' }}
     />
   );
