@@ -16,6 +16,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
   const { easy, medium, hard } = difficultyData;
 
   return (
+    <div className='rounded-2xl border border-gray-200 p-4 shadow-md'>
     <Plot
       data={[
         {
@@ -87,6 +88,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
       
       style={{ width: '100%', height: '100%' }}
     />
+    </div>
   );
 }
 

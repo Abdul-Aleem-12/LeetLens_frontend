@@ -1,0 +1,76 @@
+import React from 'react';
+import Plot from 'react-plotly.js';
+
+interface Skill {
+    tagName: string;
+    problemsSolved: number;
+  }
+  
+  interface CategoryRadarProps {
+    skills: {
+      advanced: Skill[];
+      intermediate: Skill[];
+      fundamental: Skill[];
+    };
+  }
+
+  const Radar: React.FC<CategoryRadarProps> = ({ skills }) => {
+  const getTop10 = (data: Skill[]) =>
+    [...data]
+      .sort((a, b) => b.problemsSolved - a.problemsSolved)
+      .slice(0, 10);
+
+  const categories = [
+    { title: 'Fundamental', data: getTop10(skills.fundamental), color: 'rgba(102, 204, 255, 0.6)' },
+    { title: 'Intermediate', data: getTop10(skills.intermediate), color: 'rgba(255, 153, 102, 0.6)' },
+    { title: 'Advanced', data: getTop10(skills.advanced), color: 'rgba(153, 102, 255, 0.6)' },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {categories.map(({ title, data, color }) => (
+        <div
+          key={title}
+          className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black bg-opacity-20"
+        >
+          <h3 className="text-xl font-semibold text-white mb-2 text-center">{title} Topics</h3>
+          <Plot
+            data={[
+              {
+                type: 'scatterpolar',
+                r: data.map((t) => t.problemsSolved),
+                theta: data.map((t) => t.tagName),
+                fill: 'toself',
+                name: title,
+                marker: { color },
+              },
+            ]}
+            layout={{
+              dragmode: false, 
+              hovermode: 'closest',
+              polar: {
+                radialaxis: {
+                  visible: true,
+                  color: '#ccc',
+                  tickfont: { color: '#ccc' },
+                },
+                angularaxis: {
+                  tickfont: { color: '#ccc' },
+                },
+              },
+              paper_bgcolor: 'rgba(0,0,0,0)',
+              plot_bgcolor: 'rgba(0,0,0,0)',
+              font: { color: '#fff' },
+              margin: { t: 20, b: 20, l: 20, r: 20 },
+              height: 300,
+            }}
+            config={{ displayModeBar: false, responsive: false, staticPlot: true, }}
+            style={{ width: '100%' }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default React.memo(Radar);

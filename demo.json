@@ -468,3 +468,251 @@
         ]
     }
 }
+
+
+
+
+
+
+
+{
+    "username": "fjzzq2002",
+    "profile": {
+        "realName": "Miruu",
+        "avatar": "https://assets.leetcode.com/users/fjzzq2002/avatar_1735951462.png",
+        "starRating": 2,
+        "ranking": 532419
+    },
+    "totalSolved": 227,
+    "totalQuestions": 3610,
+    "easySolved": 111,
+    "mediumSolved": 87,
+    "hardSolved": 29,
+    "totalSubmissions": 888,
+    "contributionPoints": 20905,
+    "submissionCalendar": {
+        "1722729600": 8,
+        "1723939200": 4,
+        "1728172800": 4,
+        "1735776000": 9,
+        "1735862400": 17,
+        "1735948800": 9,
+        "1736035200": 1,
+        "1736121600": 10,
+        "1736208000": 4,
+        "1736294400": 12,
+        "1736380800": 3,
+        "1740096000": 1,
+        "1740528000": 3,
+        "1740614400": 1,
+        "1740700800": 5,
+        "1740787200": 4,
+        "1741132800": 2,
+        "1741219200": 3,
+        "1741392000": 3,
+        "1741478400": 3,
+        "1741564800": 9,
+        "1741651200": 14,
+        "1741737600": 31,
+        "1741824000": 1,
+        "1741910400": 5,
+        "1742169600": 2,
+        "1742342400": 6,
+        "1742428800": 1,
+        "1742515200": 3,
+        "1742601600": 3,
+        "1742774400": 5,
+        "1743379200": 5,
+        "1743465600": 7,
+        "1743552000": 8,
+        "1743638400": 6,
+        "1744070400": 5,
+        "1745539200": 8,
+        "1745971200": 16,
+        "1746921600": 6,
+        "1747008000": 4,
+        "1747180800": 4,
+        "1747612800": 2,
+        "1747699200": 6
+    },
+    "badges": [
+        {
+            "id": "7435942",
+            "displayName": "Guardian",
+            "icon": "/static/images/badges/guardian.png"
+        }
+    ],
+    "contestStats": {
+        "attendedContestsCount": 26,
+        "rating": 3702.788,
+        "globalRanking": 1,
+        "totalParticipants": 713591,
+        "topPercentage": 0.01,
+        "badge": {
+            "name": "Guardian",
+            "icon": "/static/images/badges/guardian.png"
+        }
+    },
+    "skills": {
+        "advanced": [
+            {
+                "tagName": "Data Stream",
+                "problemsSolved": 4
+            },
+            {
+                "tagName": "Backtracking",
+                "problemsSolved": 6
+            },
+            {
+                "tagName": "Bitmask",
+                "problemsSolved": 1
+            },
+            {
+                "tagName": "Quickselect",
+                "problemsSolved": 3
+            },
+            {
+                "tagName": "Dynamic Programming",
+                "problemsSolved": 31
+            },
+            {
+                "tagName": "Divide and Conquer",
+                "problemsSolved": 5
+            },
+            {
+                "tagName": "Trie",
+                "problemsSolved": 2
+            },
+            {
+                "tagName": "Union Find",
+                "problemsSolved": 4
+            },
+            {
+                "tagName": "Binary Indexed Tree",
+                "problemsSolved": 2
+            },
+            {
+                "tagName": "Segment Tree",
+                "problemsSolved": 1
+            },
+            {
+                "tagName": "Monotonic Stack",
+                "problemsSolved": 3
+            },
+            {
+                "tagName": "Monotonic Queue",
+                "problemsSolved": 1
+            },
+            {
+                "tagName": "Topological Sort",
+                "problemsSolved": 1
+            },
+            {
+                "tagName": "Shortest Path",
+                "problemsSolved": 1
+            }
+        ],
+        "intermediate": [
+            {
+                "tagName": "Tree",
+                "problemsSolved": 17
+            },
+            {
+                "tagName": "Binary Tree",
+                "problemsSolved": 14
+            },
+            {
+                "tagName": "Hash Table",
+                "problemsSolved": 55
+            },
+            {
+                "tagName": "Ordered Set",
+                "problemsSolved": 6
+            },
+            {
+                "tagName": "Graph",
+                "problemsSolved": 12
+            },
+            {
+                "tagName": "Greedy",
+                "problemsSolved": 19
+            },
+            {
+                "tagName": "Binary Search",
+                "problemsSolved": 21
+            },
+            {
+                "tagName": "Depth-First Search",
+                "problemsSolved": 17
+            },
+            {
+                "tagName": "Breadth-First Search",
+                "problemsSolved": 13
+            },
+            {
+                "tagName": "Recursion",
+                "problemsSolved": 4
+            },
+            {
+                "tagName": "Sliding Window",
+                "problemsSolved": 12
+            },
+            {
+                "tagName": "Bit Manipulation",
+                "problemsSolved": 19
+            },
+            {
+                "tagName": "Math",
+                "problemsSolved": 38
+            },
+            {
+                "tagName": "Design",
+                "problemsSolved": 8
+            }
+        ],
+        "fundamental": [
+            {
+                "tagName": "Array",
+                "problemsSolved": 131
+            },
+            {
+                "tagName": "Matrix",
+                "problemsSolved": 14
+            },
+            {
+                "tagName": "String",
+                "problemsSolved": 52
+            },
+            {
+                "tagName": "Simulation",
+                "problemsSolved": 15
+            },
+            {
+                "tagName": "Enumeration",
+                "problemsSolved": 11
+            },
+            {
+                "tagName": "Sorting",
+                "problemsSolved": 27
+            },
+            {
+                "tagName": "Stack",
+                "problemsSolved": 17
+            },
+            {
+                "tagName": "Queue",
+                "problemsSolved": 6
+            },
+            {
+                "tagName": "Linked List",
+                "problemsSolved": 9
+            },
+            {
+                "tagName": "Two Pointers",
+                "problemsSolved": 23
+            }
+        ]
+    }
+}
+
+

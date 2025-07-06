@@ -31,6 +31,7 @@ export interface LeetCodeData {
       id: string;
       displayName: string;
       icon: string;
+      name: string;
       };
   };
   skills: {
