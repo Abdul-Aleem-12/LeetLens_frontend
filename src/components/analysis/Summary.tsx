@@ -55,7 +55,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
       </Card>
 
       {/* Contest Stats */}
-      <Card className=" text-white shadow-md">
+      {contestStats && <Card className=" text-white shadow-md">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <Trophy className="text-yellow-600" />
@@ -74,7 +74,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
             Contest Badge: {contestStats.badge?.name || 'No Badge Earned'}
           </p>
         </CardContent>
-      </Card>
+      </Card>}
     </div>
   );
 };
