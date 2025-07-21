@@ -25,8 +25,8 @@ const TopicBar = ({ title, topics, color }: { title: string; topics: TopicData[]
   const values = topics.map((t) => t.problemsSolved);
 
   return (
-    <div className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black/30">
-      <h2 className="text-xl font-semibold text-white text-center mb-2">Top {title} Topics</h2>
+    <div className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black/30 bg-gradient-to-r from-purple-100 to-purple-200 mb-3">
+      <h2 className="text-xl font-semibold text-center mb-2 ">Top {title} Topics</h2>
       <Plot
         data={[
           {
@@ -42,14 +42,14 @@ const TopicBar = ({ title, topics, color }: { title: string; topics: TopicData[]
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
           xaxis: {
-            title: { text: '', font: { color: '#ccc' } },
-            tickfont: { color: '#ccc' }
+            title: { text: '', font: { color: '#000' } },
+            tickfont: { color: '#000' }
           },
           yaxis: {
-            title: { text: 'Problems Solved', font: { color: '#ccc' } },
-            tickfont: { color: '#ccc' }
+            title: { text: 'Problems Solved', font: { color: '#000' } },
+            tickfont: { color: '#000' }
           },
-          font: { color: '#fff' },
+          font: { color: '#000' },
           margin: { t: 10 },
         }}
         config={{ displayModeBar: false,}}

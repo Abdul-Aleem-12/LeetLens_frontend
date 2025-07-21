@@ -27,13 +27,13 @@ interface Skill {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
       {categories.map(({ title, data, color }) => (
         <div
           key={title}
-          className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black bg-opacity-20"
+          className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black bg-opacity-20 bg-gradient-to-r from-purple-100 to-purple-200 "
         >
-          <h3 className="text-xl font-semibold text-white mb-2 text-center">{title} Topics</h3>
+          <h3 className="text-xl font-semibold mb-2 text-center">{title} Topics</h3>
           <Plot
             data={[
               {
@@ -52,15 +52,15 @@ interface Skill {
                 radialaxis: {
                   visible: true,
                   color: '#ccc',
-                  tickfont: { color: '#ccc' },
+                  tickfont: { color: '#000' },
                 },
                 angularaxis: {
-                  tickfont: { color: '#ccc' },
+                  tickfont: { color: '#000' },
                 },
               },
               paper_bgcolor: 'rgba(0,0,0,0)',
               plot_bgcolor: 'rgba(0,0,0,0)',
-              font: { color: '#fff' },
+              font: { color: '#000' },
               margin: { t: 20, b: 20, l: 20, r: 20 },
               height: 300,
             }}

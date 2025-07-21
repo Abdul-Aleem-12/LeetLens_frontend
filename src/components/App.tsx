@@ -11,7 +11,6 @@ import About from "./others/About";
 function App() {
   console.log("app entered function");
   return (
-    //<div className="flex flex-col min-h-screen bg-black relative overflow-hidden">
       <div className='bg-black'>
       <div 
         className="absolute top-1/4 left-1/2 transform -translate-x-1/2 

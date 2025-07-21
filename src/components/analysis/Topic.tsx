@@ -15,7 +15,7 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
   const advancedTotal = skills.advanced.reduce((acc, cur) => acc + cur.problemsSolved, 0);
 
   return (
-    <div className="w-full rounded-2xl border border-gray-200 p-4 shadow-md">
+    <div className="w-full rounded-2xl border-4 border-purple-400 p-4 shadow-md bg-gradient-to-r from-purple-100 to-purple-200">
       <Plot
         data={[
           {
@@ -27,7 +27,7 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
             marker: {
               colors: ['#76D7C4', '#F7DC6F', '#EC7063'],
               line: {
-                color: '#ffffff',
+                color: '#111',
                 width: 2
               }
             },
@@ -37,16 +37,16 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
         layout={{
           title: {
             text: 'Topic Category Distribution',
-            font: { size: 22, color: '#fff' },
+            font: { size: 22, color: '#000' },
             x: 0.5,
             xanchor: 'center',
           },
-          paper_bgcolor: 'rgba(0,0,0,0.2)',
+          paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
           showlegend: true,
           legend: {
             orientation: 'h',
-            font: { color: '#ccc' },
+            font: { color: '#000' },
             y: -0.2
           }
         }}

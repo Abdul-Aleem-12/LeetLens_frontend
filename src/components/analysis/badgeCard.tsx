@@ -12,7 +12,7 @@ const BadgeCard = ({ badge }:Badgecardprop) => {
             const target = e.target as HTMLImageElement;
             target.src = "/defaultBadge.png"; // fallback image path
           }}/>
-        <p className="mt-2 text-2xl text-white font-medium">{badge.displayName}</p>
+        <p className="mt-2 text-2xl font-medium">{badge.displayName}</p>
       </div>
     );
   };

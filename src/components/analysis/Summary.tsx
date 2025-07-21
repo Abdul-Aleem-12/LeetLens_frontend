@@ -20,9 +20,9 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
   } = data;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 clash-grotesk">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 clash-grotesk ">
       {/* Total Solved */}
-      <Card className="shadow-md text-white">
+      <Card className="shadow-md">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <Target className="text-blue-600" />
@@ -40,7 +40,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
       </Card>
 
       {/* Difficulty Breakdown */}
-      <Card className=" text-white shadow-md text-5xl sm:text-7xl">
+      <Card className=" shadow-md text-5xl sm:text-7xl">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <BarChart3 className="text-green-600" />
@@ -55,7 +55,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
       </Card>
 
       {/* Contest Stats */}
-      {contestStats && <Card className=" text-white shadow-md">
+      {/* {contestStats && <Card className=" shadow-md">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <Trophy className="text-yellow-600" />
@@ -74,7 +74,41 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
             Contest Badge: {contestStats.badge?.name || 'No Badge Earned'}
           </p>
         </CardContent>
-      </Card>}
+      </Card>} */}
+          {contestStats ? (
+      <Card className="shadow-md">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <Trophy className="text-yellow-600" />
+            Contest Stats
+          </h2>
+          <p className="text-md font-semibold">
+            Rating: <span className="font-extrabold">{Math.round(contestStats.rating)}</span>
+          </p>
+          <p className="sm:text-4xl text-xl font-normal">
+            Global Ranking: <span className="font-bold">Top {contestStats.topPercentage}%</span>
+          </p>
+          <p className="sm:text-4xl text-3xl text-gray-700 mt-3">
+            Contests Attended: {contestStats.attendedContestsCount}
+          </p>
+          <p className="sm:text-4xl text-3xl text-gray-700 mt-3">
+            Contest Badge: {contestStats.badge?.name || 'No Badge Earned'}
+          </p>
+        </CardContent>
+      </Card>
+    ) : (
+      <Card className="shadow-md">
+        <CardContent className="p-4 flex flex-col gap-3">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <Trophy className="text-yellow-600" />
+            Contest Stats
+          </h2>
+          <p className="text-lg text-gray-700">No contest data available.</p>
+          <p className="text-base text-gray-500">Participate in contests to see your progress here!</p>
+        </CardContent>
+      </Card>
+    )}
+
     </div>
   );
 };

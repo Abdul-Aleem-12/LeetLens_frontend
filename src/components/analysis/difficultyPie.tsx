@@ -16,7 +16,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
   const { easy, medium, hard } = difficultyData;
 
   return (
-    <div className='rounded-2xl border border-gray-200 p-4 shadow-md'>
+    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-gradient-to-r from-purple-100 to-purple-200'>
     <Plot
       data={[
         {
@@ -28,14 +28,14 @@ function Difficulty_PieChart({ difficultyData }: Props) {
           textposition: 'outside',
           textfont: {
             family: 'Arial, sans-serif',
-            color: '#hfffff',
+            color: '#000',
             size: 16,
           },
           // pull: [0.05, 0.05, 0.05],
           marker: {
             colors: ['#76D7C4', '#F7DC6F', '#EC7063'], // Slightly deeper pastel
             line: {
-              color: '#ffffff',
+              color: '#000',
               width: 2
             }
           },
@@ -45,7 +45,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
       layout={{
         title: {
           text: 'Difficulty Distribution',
-          font: { size: 24, color: '#333' },
+          font: { size: 24, color: '#000' },
           x: 0.5,
           xanchor: 'center'
         },
@@ -62,11 +62,11 @@ function Difficulty_PieChart({ difficultyData }: Props) {
             yanchor: 'middle'
           }
         ],
-        paper_bgcolor: 'rgba(0,0,0,0.36)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',  
         showlegend: true,
         legend: {
-          font: { color: '#333' },
+          font: { color: '#000' },
           orientation: 'h',
           x: 0.2,
           y: -0.1

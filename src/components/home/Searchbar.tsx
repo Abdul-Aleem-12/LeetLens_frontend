@@ -35,7 +35,7 @@ const Searchbar = () => {
       navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
     } catch (err: any) {
       if (err.response?.status === 400) {
-        setError("Username not found. Check the spelling.");
+        setError("Username not found. Check-spelling.");
       } else {
         setError("Something went wrong. Please try again later.");
       }
