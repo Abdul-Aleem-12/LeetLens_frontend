@@ -24,7 +24,7 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
   const counts = data.map(entry => entry.count);
 
   return (
-    <div className=" mt-5 w-full rounded-2xl border border-gray-200 p-4 shadow-md bg-gradient-to-r from-purple-100 to-purple-200">
+    <div className=" mt-3 w-full rounded-2xl border border-gray-200 p-4 shadow-md bg-white">
       <Plot
         data={[
           {

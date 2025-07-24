@@ -38,12 +38,12 @@ const Analyze = () => {
       <div className="grid grid-col mt-10 lg:pl-10 lg:pr-10 px-2 text-7xl justify-start raleway-st-bold">
         <Greeting username={data.profile.realName}/>
         <Summary data={data} />
-        <div className='grid grid-cols-1 sm:grid-cols-2 mt-5 gap-3 mr-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 mt-3 gap-3 mr-3'>
           <Diffculty_PieChart difficultyData={difficultyStats} />
           <Badges badges={data.badges} />
         </div>
         <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
-        <div  className='pt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 min-h-[400px] h-full w-full'>
+        <div  className='mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 min-h-[400px] h-full w-full'>
           <SubmissionStats submissionCalendar={data.submissionCalendar} />
           <Topic skills={data.skills} />
         </div>

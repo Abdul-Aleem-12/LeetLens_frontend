@@ -48,7 +48,7 @@ const RotatingBadge: React.FC<Props> = ({ badges }) => {
   }, [badges.length]);
 
   return (
-    <div className="mx-auto transition-opacity duration-200 ease-initial rounded-2xl border-4 border-purple-500 p-4 shadow-md bg-gradient-to-r from-purple-100 to-purple-200">
+    <div className="mx-auto transition-opacity duration-200 ease-initial rounded-2xl shadow-md bg-white ">
       <h1>Total Number of Badges earned : {badges.length}</h1>
       <h2 className="text-3xl font-bold mb-4 text-center">Badges</h2>
 

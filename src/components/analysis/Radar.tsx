@@ -27,11 +27,11 @@ interface Skill {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
       {categories.map(({ title, data, color }) => (
         <div
           key={title}
-          className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black bg-opacity-20 bg-gradient-to-r from-purple-100 to-purple-200 "
+          className="rounded-2xl border border-gray-200 p-4 shadow-md bg-white "
         >
           <h3 className="text-xl font-semibold mb-2 text-center">{title} Topics</h3>
           <Plot

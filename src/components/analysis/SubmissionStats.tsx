@@ -43,7 +43,7 @@ const SubmissionStatsCard: React.FC<Props> = ({ submissionCalendar }) => {
   const avgPerActiveDay = activeDays > 0 ? (totalSubmissions / activeDays).toFixed(2) : '0';
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white/5 backdrop-blur-md p-6 shadow-md w-full bg-gradient-to-r  from-purple-100 to-purple-200">
+    <div className="rounded-2xl border border-gray-200 bg-white backdrop-blur-md p-6 shadow-md w-full">
       <h2 className="text-2xl font-bold mb-4">📊 Submission Insights</h2>
       <ul className="space-y-2 text-sm sm:text-base">
         <li><strong> Max Submission:</strong> {maxSubmission.count} on {maxSubmission.date.toDateString()}</li>

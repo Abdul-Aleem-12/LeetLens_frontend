@@ -7,3 +7,14 @@
   padding: 0px;
   text-align: center;
 }
+body {
+  background-color: black;
+  background-image: url('/first.png'); /* this is your third image (uizard-like) */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+.grad{
+  background: #0a090d;
+background: linear-gradient(162deg, rgba(10, 9, 13, 1) 1%, rgba(50, 16, 104, 1) 4%, rgba(10, 9, 13, 1) 17%, rgba(33, 26, 26, 1) 31%, rgba(77, 12, 173, 1) 41%, rgba(12, 12, 13, 1) 48%, rgba(8, 4, 15, 1) 58%, rgba(42, 15, 87, 1) 66%, rgba(12, 12, 13, 1) 83%, rgba(12, 12, 13, 1) 93%);
+}
