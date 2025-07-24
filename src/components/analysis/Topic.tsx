@@ -15,7 +15,7 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
   const advancedTotal = skills.advanced.reduce((acc, cur) => acc + cur.problemsSolved, 0);
 
   return (
-    <div className="w-full rounded-2xl p-4 shadow-md bg-white">
+    <div className="w-full rounded-2xl p-4 shadow-md bg-white min-h-100">
       <Plot
         data={[
           {
