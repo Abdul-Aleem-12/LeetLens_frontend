@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, Github } from "lucide-react"; // Icons
 
 const Navbar = () => {
@@ -8,9 +9,9 @@ const Navbar = () => {
     <nav className="w-full bg-black py-4 px-6 rounded-2xl">
       <div className="flex items-center justify-between">
         {/* Logo */}
-          <h1 className="text-white text-xl l:text-3xl font-extrabold l:font-bold font-sans raleway-st">
-            LeetLens
-          </h1>
+        <Link to="/" className="text-white text-xl l:text-3xl font-extrabold l:font-bold font-sans raleway-st">
+          LeetLens
+        </Link>
 
         {/* Hamburger button (visible on mobile) */}
         <div className="sm:hidden">
