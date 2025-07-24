@@ -23,7 +23,7 @@ const MostSolvedTopics: React.FC<Props> = ({ skills }) => {
   const maxSolved = topTopics[0]?.problemsSolved || 1;
 
   return (
-    <Card className=" mt-3 bg-white">
+    <Card className=" mt-6 bg-white">
       <CardContent className="p-4">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <BarChartHorizontal className="text-purple-700" />

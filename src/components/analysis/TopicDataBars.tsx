@@ -65,7 +65,7 @@ const TopTopicsBarCharts: React.FC<Props> = ({ skills }) => {
   const topAdvanced = extractTopTopics(skills.advanced);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-3">
       <TopicBar title="Fundamental" topics={topFundamental} color="#76D7C4" />
       <TopicBar title="Intermediate" topics={topIntermediate} color="#F7DC6F" />
       <TopicBar title="Advanced" topics={topAdvanced} color="#EC7063" />
