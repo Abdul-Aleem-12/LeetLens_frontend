@@ -54,28 +54,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
         </CardContent>
       </Card>
 
-      {/* Contest Stats */}
-      {/* {contestStats && <Card className=" shadow-md">
-        <CardContent className="p-4">
-          <h2 className="text-xl font-semibold flex items-center gap-2">
-            <Trophy className="text-yellow-600" />
-            Contest Stats
-          </h2>
-          <p className="text-md font-semibold">
-            Rating: <span className="font-extrabold">{Math.round(contestStats.rating)}</span>
-          </p>
-          <p className="sm:text-4xl text-xl font-normal">
-            Global Ranking: <span className="font-bold"> Top {contestStats.topPercentage}%</span>
-          </p>
-          <p className="sm:text-4xl text-3xl text-gray-700 mt-3">
-            Contests Attended: {contestStats.attendedContestsCount}
-          </p>
-          <p className="sm:text-4xl text-3xl text-gray-700 mt-3">
-            Contest Badge: {contestStats.badge?.name || 'No Badge Earned'}
-          </p>
-        </CardContent>
-      </Card>} */}
-          {contestStats ? (
+      {contestStats ? (
       <Card className="shadow-md">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">

@@ -25,7 +25,7 @@ const TopicBar = ({ title, topics, color }: { title: string; topics: TopicData[]
   const values = topics.map((t) => t.problemsSolved);
 
   return (
-    <div className="rounded-2xl border border-gray-200 p-4 shadow-md bg-black/30 bg-gradient-to-r from-purple-100 to-purple-200 mb-3">
+    <div className="rounded-2xl border border-gray-200 p-4 shadow-md bg-white">
       <h2 className="text-xl font-semibold text-center mb-2 ">Top {title} Topics</h2>
       <Plot
         data={[
