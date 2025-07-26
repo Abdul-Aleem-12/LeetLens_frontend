@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 
 interface Props {
   submissionCalendar: { [timestamp: string]: number };
 }
 
+// ✅ Custom hook to track window size
+function useWindowSize() {
+  const [size, setSize] = useState<[number, number]>([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handler = () => setSize([window.innerWidth, window.innerHeight]);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+  return size;
+}
+
 const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
   const currentDate = new Date();
   const daysToShow = 100;
+  const cur_year = new Date().getFullYear();
+
+  const [width] = useWindowSize(); // ✅ get window width
+  const height = width < 640 ? 300 : 450; // ✅ set dynamic height
 
   const data = Object.entries(submissionCalendar)
     .map(([timestamp, count]) => {
@@ -22,9 +37,12 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
 
   const dates = data.map(entry => entry.date.toISOString().split('T')[0]);
   const counts = data.map(entry => entry.count);
-  const cur_year = new Date().getFullYear();
+
   return (
-    <div className=" mt-3 w-full rounded-2xl border border-gray-200 p-4 shadow-md bg-white">
+    <div
+      className="relative mt-3 w-full rounded-2xl border border-gray-200 p-4 shadow-md bg-white"
+      style={{ minHeight: '300px' }}
+    >
       <Plot
         data={[
           {
@@ -38,6 +56,8 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
           },
         ]}
         layout={{
+          autosize: true, 
+          margin: { t: 60, b: 60, l: 50, r: 30 },
           dragmode: false,
           hovermode: 'closest',
           title: {
@@ -62,20 +82,29 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
             },
             tickfont: { color: '#000' },
           },
-          paper_bgcolor: 'rgba(0,0,0,0)', 
-          plot_bgcolor: 'rgba(0,0,0,0)',  
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)',
         }}
         config={{
           responsive: true,
           displaylogo: false,
           modeBarButtonsToRemove: [
-            'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d',
-            'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian',
-            'toggleSpikelines', 'sendDataToCloud', 'toggleHover',
+            'zoom2d',
+            'pan2d',
+            'select2d',
+            'lasso2d',
+            'zoomIn2d',
+            'zoomOut2d',
+            'autoScale2d',
+            'hoverClosestCartesian',
+            'hoverCompareCartesian',
+            'toggleSpikelines',
+            'sendDataToCloud',
+            'toggleHover',
           ],
           modeBarButtonsToAdd: ['resetScale2d'],
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height }}
       />
     </div>
   );

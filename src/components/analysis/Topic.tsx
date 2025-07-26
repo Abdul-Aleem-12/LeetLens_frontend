@@ -26,10 +26,6 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
             hoverinfo: 'label+value+percent',
             marker: {
               colors: ['#76D7C4', '#F7DC6F', '#EC7063'],
-              line: {
-                color: '#111',
-                width: 2
-              }
             },
             hole: 0.4,
           },

@@ -16,7 +16,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
   const { easy, medium, hard } = difficultyData;
 
   return (
-    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-white min-h-100'>
+    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-white min-h-120'>
     <Plot
       data={[
         {
@@ -31,13 +31,12 @@ function Difficulty_PieChart({ difficultyData }: Props) {
             color: '#000',
             size: 16,
           },
-          // pull: [0.05, 0.05, 0.05],
           marker: {
             colors: ['#76D7C4', '#F7DC6F', '#EC7063'], // Slightly deeper pastel
-            line: {
-              color: '#000',
-              width: 2
-            }
+            // line: {
+            //   color: '#000',
+            //   width: 2
+            // }
           },
           hole: 0.6, // Larger hole for more pronounced donut
         },

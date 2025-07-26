@@ -115,7 +115,7 @@ const Searchbar = () => {
       </form>
 
       <div className='flex flex-col relative items-center justify-center'>
-        <div className='text-white relative top-30 xl:top-55 raleway-st-bold flex flex-row'>
+        <div className='text-white relative top-30 xl:top-55 raleway-st-bold flex flex-row px-4'>
           <span>You can find your Username here in your Leetcode profile ⇓</span>
         </div>
         <div>

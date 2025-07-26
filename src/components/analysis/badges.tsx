@@ -48,16 +48,22 @@ const RotatingBadge: React.FC<Props> = ({ badges }) => {
   }, [badges.length]);
 
   return (
-    <div className="mx-auto transition-opacity duration-200 ease-initial rounded-2xl shadow-md bg-white ">
-      <h1>Total Number of Badges earned : {badges.length}</h1>
+    <div className="mx-auto transition-opacity duration-200 ease-initial rounded-2xl shadow-md bg-white min-w-1/">
+      <h1 className='text-2xl sm:text-7xl'>Total Number of Badges earned : {badges.length}</h1>
       <h2 className="text-3xl font-bold mb-4 text-center">Badges</h2>
 
       {badges.length > 0 ? (
         <BadgeCard badge={badges[current]} />
       ) : (
-        <p className="text-center text-gray-700 text-xl mt-4">
-          No badges earned yet. Participate in contests to earn badges!
-        </p>
+        <>
+        <p className=" text-center text-gray-700 text-xl mt-4">
+          No badges earned yet.         </p>
+          <ul className="list-disc list-inside text-gray-700 text-xl mt-4 text-left mx-auto w-fit">
+            <li>Be active for atleast 50 days</li>
+            <li>Solve Daily problem for a month</li>
+            <li>Participate in contests</li>
+          </ul>
+        </>
       )}
     </div>
   );
