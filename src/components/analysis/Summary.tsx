@@ -85,7 +85,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
           <p className="text-lg text-gray-700">No contest Involved.</p>
           <p className="text-base text-gray-500">Participate in contests to see your progress here!</p>
           <ul className='list-disc list-inside text-gray-700 text-xl mt-4 text-left mx-auto w-fit'>
-            <li>Bi-weekly happens once every two saturday 8:00PM IST</li>
+            <li>Bi-weekly happens every alternative saturday 8:00PM IST</li>
             <li>Weekly contest happens every sunday 8:00AM IST</li>
           </ul>
         </CardContent>
