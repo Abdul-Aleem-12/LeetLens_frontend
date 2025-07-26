@@ -19,6 +19,8 @@ const Searchbar = () => {
   };
 
   const handleSearch = async () => {
+                  // removed test because iam going to log all searches irrespective of valid or not
+    const enocoded_username = encodeURIComponent(username);
     if (!username.trim()) {
       setError("Please enter a username.");
       setUsername('');
@@ -29,15 +31,17 @@ const Searchbar = () => {
 
     try {
       setSubmitting(true);
-      const res = await axios.get(`${backendUrl}/${username.trim()}`, { timeout: 5000 });
+      const res = await axios.get(`${backendUrl}/${enocoded_username.trim()}`, { timeout: 5000 });
       console.log(res.data);
       setError('');
       navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
     } catch (err: any) {
       if (err.response?.status === 400) {
-        setError("Username not found. Check-spelling.");
+        setError(err.response.data.error );
+      } else if (!err.response) {
+        setError("Server is unreachable,Please try again.");
       } else {
-        setError("Something went wrong. Please try again later.");
+        setError("Unexpected error occurred. Try again later.");
       }
       setUsername('');
       setInputKey(prev => prev + 1);
@@ -118,7 +122,7 @@ const Searchbar = () => {
           <img
             src={demo}
             alt="image of username"
-            className="z-0 h-80 w-80 relative mt-40 mb-3 xl:mt-60"
+            className="z-0 h-90 w-90 relative mt-40 mb-3 xl:mt-60"
           />
         </div>
       </div>

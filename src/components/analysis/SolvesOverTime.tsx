@@ -22,7 +22,7 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
 
   const dates = data.map(entry => entry.date.toISOString().split('T')[0]);
   const counts = data.map(entry => entry.count);
-
+  const cur_year = new Date().getFullYear();
   return (
     <div className=" mt-3 w-full rounded-2xl border border-gray-200 p-4 shadow-md bg-white">
       <Plot
@@ -41,7 +41,7 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
           dragmode: false,
           hovermode: 'closest',
           title: {
-            text: `Problems Solved<br><span style="font-size:14px; color:#000;">Last ${daysToShow} Active Days</span>`,
+            text: `Problems Solved<br><span style="font-size:14px; color:#000;">Last ${daysToShow} Active Days in ${cur_year}</span>`,
             font: { size: 22, color: '#000' },
             x: 0.5,
             xanchor: 'center',

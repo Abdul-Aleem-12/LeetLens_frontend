@@ -16,7 +16,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
   const { easy, medium, hard } = difficultyData;
 
   return (
-    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-white'>
+    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-white min-h-100'>
     <Plot
       data={[
         {
