@@ -19,11 +19,11 @@ interface Props {
 const MostSolvedTopics: React.FC<Props> = ({ skills }) => {
   const allTopics = [...skills.fundamental, ...skills.intermediate, ...skills.advanced];
   const sortedTopics = allTopics.sort((a, b) => b.problemsSolved - a.problemsSolved);
-  const topTopics = sortedTopics.slice(0, 5);
+  const topTopics = sortedTopics.slice(0, 6);
   const maxSolved = topTopics[0]?.problemsSolved || 1;
 
   return (
-    <Card className=" mt-6 bg-white">
+    <Card className=" sm:w-2/3 bg-white">
       <CardContent className="p-4">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <BarChartHorizontal className="text-purple-700" />

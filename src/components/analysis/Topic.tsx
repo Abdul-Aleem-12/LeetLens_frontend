@@ -13,41 +13,91 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
   const fundamentalTotal = skills.fundamental.reduce((acc, cur) => acc + cur.problemsSolved, 0);
   const intermediateTotal = skills.intermediate.reduce((acc, cur) => acc + cur.problemsSolved, 0);
   const advancedTotal = skills.advanced.reduce((acc, cur) => acc + cur.problemsSolved, 0);
+  const totalProblems = fundamentalTotal + intermediateTotal + advancedTotal;
 
   return (
-    <div className="w-full rounded-2xl p-4 shadow-md bg-white min-h-100">
+    <div className="sm:w-1/3 rounded-2xl p-6 shadow-lg bg-white border border-gray-100 hover:shadow-xl transition-shadow duration-300">
       <Plot
         data={[
           {
             type: 'pie',
             values: [fundamentalTotal, intermediateTotal, advancedTotal],
             labels: ['Fundamental', 'Intermediate', 'Advanced'],
-            textinfo: 'label+value+percent',
+            textinfo: 'label+percent',
             hoverinfo: 'label+value+percent',
-            marker: {
-              colors: ['#76D7C4', '#F7DC6F', '#EC7063'],
+            textposition: 'inside',
+            textfont: {
+              family: 'Inter, sans-serif',
+              size: 14,
+              color: '#fff'
             },
-            hole: 0.4,
-          },
+            marker: {
+              colors: ['#10B981', '#F59E0B', '#EF4444'], // Modern color palette
+              line: {
+                color: '#fff',
+                width: 1
+              }
+            },
+            hole: 0.65,
+            rotation: 45,
+            pull: 0.02,
+            automargin: true
+          }
         ]}
         layout={{
           title: {
-            text: 'Topic Category Distribution',
-            font: { size: 22, color: '#000' },
+            text: 'Problem Difficulty Distribution',
+            font: { 
+              family: 'Inter, sans-serif',
+              size: 20,
+              color: '#111827',
+              //weight: 'bold'
+            },
             x: 0.5,
             xanchor: 'center',
+            y: 0.95
           },
+          annotations: [
+            {
+              font: {
+                family: 'Inter, sans-serif',
+                size: 18,
+                color: '#111827',
+                //weight: 'bold'
+              },
+              showarrow: false,
+              text: `Total<br>${totalProblems}`,
+              x: 0.5,
+              y: 0.5
+            }
+          ],
+          margin: { t: 80, b: 40, l: 40, r: 40 },
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
           showlegend: true,
           legend: {
+            font: { 
+              family: 'Inter, sans-serif',
+              size: 12,
+              color: '#6B7280'
+            },
             orientation: 'h',
-            font: { color: '#000' },
-            y: -0.2
+            x: 0.5,
+            y: -0.15,
+            xanchor: 'center'
+          },
+          hoverlabel: {
+            font: {
+              family: 'Inter, sans-serif',
+              size: 14,
+              color: '#111827'
+            },
+            bordercolor: '#E5E7EB'
           }
         }}
         config={{
           responsive: true,
+          displayModeBar: true,
           displaylogo: false,
           modeBarButtonsToRemove: [
             'zoom2d', 'pan2d', 'select2d', 'lasso2d',
@@ -55,9 +105,17 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
             'hoverClosestCartesian', 'hoverCompareCartesian',
             'toggleSpikelines', 'sendDataToCloud', 'toggleHover'
           ],
-          modeBarButtonsToAdd: ['toImage']
+          modeBarButtonsToAdd: ['toImage'],
+          toImageButtonOptions: {
+            format: 'png',
+            filename: 'leetcode-topic-distribution',
+            height: 600,
+            width: 800,
+            scale: 2
+          }
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '400px' }}
+        useResizeHandler={true}
       />
     </div>
   );

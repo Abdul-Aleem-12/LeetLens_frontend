@@ -66,11 +66,10 @@ const TopTopicsBarCharts: React.FC<Props> = ({ skills }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-3">
-      <TopicBar title="Fundamental" topics={topFundamental} color="#76D7C4" />
-      <TopicBar title="Intermediate" topics={topIntermediate} color="#F7DC6F" />
-      <TopicBar title="Advanced" topics={topAdvanced} color="#EC7063" />
+      <TopicBar title="Fundamental" topics={topFundamental} color="#10B981" />
+      <TopicBar title="Intermediate" topics={topIntermediate} color="#F59E0B" />
+      <TopicBar title="Advanced" topics={topAdvanced} color="#EF4444" />
     </div>
   );
 };
-
 export default React.memo(TopTopicsBarCharts);

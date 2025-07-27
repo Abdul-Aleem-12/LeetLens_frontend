@@ -6,11 +6,11 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-}
-body {
+  font-family: 'Raleway', sans-serif;
   overflow-x: hidden;
 }
-.placeholder-rale::placeholder {
+
+.placeholder-rale::₹placeholder {
   font-family: "Raleway", sans-serif;
   /* font-weight: 600;           optional */
   /* font-size: 1.25rem;         optional */

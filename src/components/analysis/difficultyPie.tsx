@@ -13,80 +13,113 @@ interface Props {
 }
 
 function Difficulty_PieChart({ difficultyData }: Props) {
-  const { easy, medium, hard } = difficultyData;
+  const { easy, medium, hard, total } = difficultyData;
 
   return (
-    <div className='rounded-2xl border border-gray-200 p-4 shadow-md bg-white min-h-120'>
-    <Plot
-      data={[
-        {
-          type: 'pie',
-          values: [easy, medium, hard],
-          labels: ['Easy', 'Medium', 'Hard'],
-          textinfo: 'label+value',
-          hoverinfo: 'label+value+percent',
-          textposition: 'outside',
-          textfont: {
-            family: 'Arial, sans-serif',
-            color: '#000',
-            size: 16,
-          },
-          marker: {
-            colors: ['#76D7C4', '#F7DC6F', '#EC7063'], // Slightly deeper pastel
-            // line: {
-            //   color: '#000',
-            //   width: 2
-            // }
-          },
-          hole: 0.6, // Larger hole for more pronounced donut
-        },
-      ]}
-      layout={{
-        title: {
-          text: 'Difficulty Distribution',
-          font: { size: 24, color: '#000' },
-          x: 0.5,
-          xanchor: 'center'
-        },
-        annotations: [
+    <div className='rounded-2xl border border-gray-200 p-6 shadow-md bg-white w-full h-full'>
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800 font-serif">
+          {/* //<BarChart3 className="text-green-600" /> */}
+          Difficulty Distribution
+        </h2>
+      <Plot
+        data={[
           {
-            font: {
-              size: 16
+            type: 'pie',
+            values: [easy, medium, hard],
+            labels: ['Easy', 'Medium', 'Hard'],
+            textinfo: 'label+percent',
+            hoverinfo: 'label+value+percent',
+            textposition: 'inside',
+            textfont: {
+              family: 'Inter, sans-serif',
+              size: 14,
+              color: '#fff'
             },
-            showarrow: false,
-            text: 'Total Solved <br>' + difficultyData.total,
-            x: 0.5,
-            y: 0.5,
-            xanchor: 'center',
-            yanchor: 'middle'
+            marker: {
+              colors: ['#10B981', '#F59E0B', '#EF4444'],
+              line: {
+                color: '#fff',
+                width: 1
+              }
+            },
+            hole: 0.65,
+            rotation: 45,
+            pull: 0.02
           }
-        ],
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)',  
-        showlegend: true,
-        legend: {
-          font: { color: '#000' },
-          orientation: 'h',
-          x: 0.2,
-          y: -0.1
-        },
-      }}
-      config={{
-        responsive: true,
-        displayModeBar: true,
-        modeBarButtonsToRemove: [
-          'zoom2d', 'pan2d', 'select2d', 'lasso2d',
-          'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d',
-          'hoverClosestCartesian', 'hoverCompareCartesian',
-          'toggleSpikelines', 'sendDataToCloud',  
-          'resetViews',
-        ],
-        modeBarButtonsToAdd: ['toImage'],
-        displaylogo: false, 
-      }}
-      
-      style={{ width: '100%', height: '100%' }}
-    />
+        ]}
+        layout={{
+          title: {
+            //text: 'Difficulty Distribution',
+            font: { 
+              family: 'Inter, sans-serif',
+              size: 20,
+              weight: 600,
+              color: '#111827'
+            },
+            x: 0.5,
+            xanchor: 'center',
+            y: 0.95
+          },
+          annotations: [
+            {
+              font: {
+                family: 'Inter, sans-serif',
+                size: 18,
+                weight: 600,
+                color: '#111827'
+              },
+              showarrow: false,
+              text: `Total<br>${total}`,
+              x: 0.5,
+              y: 0.5
+            }
+          ],
+          margin: { t: 60, b: 40, l: 40, r: 40 },
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)',
+          showlegend: true,
+          legend: {
+            font: { 
+              family: 'Inter, sans-serif',
+              size: 12,
+              color: '#6B7280'
+            },
+            orientation: 'h',
+            x: 0.5,
+            y: -0.1,
+            xanchor: 'center'
+          },
+          hoverlabel: {
+            font: {
+              family: 'Inter, sans-serif',
+              size: 14,
+              color: '#111827'
+            },
+          }
+        }}
+        config={{
+          responsive: true,
+          displayModeBar: true,
+          modeBarButtonsToRemove: [
+            'zoom2d', 'pan2d', 'select2d', 'lasso2d',
+            'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d',
+            'hoverClosestCartesian', 'hoverCompareCartesian',
+            'toggleSpikelines', 'sendDataToCloud',
+            'resetViews',
+          ],
+          modeBarButtonsToAdd: ['toImage'],
+          displaylogo: false,
+          toImageButtonOptions: {
+            format: 'png',
+            filename: 'leetcode-difficulty-distribution',
+            height: 600,
+            width: 800,
+            scale: 2
+          }
+        }}
+        style={{ width: '100%', height: '400px' }}
+        useResizeHandler={true}
+      />
     </div>
   );
 }
