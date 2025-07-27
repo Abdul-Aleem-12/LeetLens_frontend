@@ -405,68 +405,74 @@ const SolvesOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) => {
 
       <div className="h-[calc(100%-150px)]"> {/* Fixed height container */}
         {activeTab === 'chart' ? (
-          <Plot
-            data={[
-              {
-                x: filteredData.map(entry => entry.date),
-                y: filteredData.map(entry => entry.count),
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { 
-                  color: '#7C3AED',
-                  size: 8,
-                  line: { width: 1, color: '#FFFFFF' }
-                },
-                line: { 
-                  color: '#8B5CF6',
-                  width: 3,
-                  shape: 'spline',
-                  smoothing: 1.3
-                },
-                name: 'Daily Solves',
-                hovertemplate: '<b>%{x|%b %d}</b><br>%{y} solves<extra></extra>',
-                fill: 'tozeroy',
-                fillcolor: 'rgba(124, 58, 237, 0.1)'
-              },
-            ]}
-            layout={{
-              height: isMobile ? 300 : 350,
-              margin: { t: 0, b: 60, l: 60, r: 30 },
-              hovermode: 'x unified',
-              xaxis: {
-                title: { text: 'Date', font: { color: '#6B7280' } },
-                tickfont: { color: '#6B7280' },
-                gridcolor: '#F3F4F6',
-                linecolor: '#E5E7EB',
-              },
-              yaxis: {
-                title: { text: 'Problems Solved', font: { color: '#6B7280' } },
-                tickfont: { color: '#6B7280' },
-                gridcolor: '#F3F4F6',
-                linecolor: '#E5E7EB',
-              },
-              paper_bgcolor: 'rgba(0,0,0,0)',
-              plot_bgcolor: 'rgba(0,0,0,0)',
-              showlegend: false,
-              hoverlabel: {
-                bgcolor: '#FFFFFF',
-                bordercolor: '#E5E7EB',
-                font: { color: '#111827' }
-              }
-            }}
-            config={{
-              responsive: true,
-              displaylogo: false,
-              modeBarButtonsToRemove: [
-                'zoom2d', 'pan2d', 'select2d', 'lasso2d',
-                'zoomIn2d', 'zoomOut2d', 'autoScale2d',
-                'hoverClosestCartesian', 'hoverCompareCartesian',
-                'toggleSpikelines', 'sendDataToCloud', 'toggleHover'
-              ],
-              displayModeBar: true
-            }}
-            style={{ width: '100%' }}
-          />
+      <Plot
+        data={[
+          {
+            x: filteredData.map(entry => entry.date),
+            y: filteredData.map(entry => entry.count),
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: { 
+              color: '#7C3AED',
+              size: 8,
+              line: { width: 1, color: '#FFFFFF' }
+            },
+            line: { 
+              color: '#8B5CF6',
+              width: 3,
+              shape: 'spline',
+              smoothing: 1.3
+            },
+            name: 'Daily Solves',
+            hovertemplate: '<b>%{x|%b %d}</b><br>%{y} solves<extra></extra>',
+            fill: 'tozeroy',
+            fillcolor: 'rgba(124, 58, 237, 0.1)'
+          },
+        ]}
+        layout={{
+          height: isMobile ? 300 : 350,
+          margin: { t: 0, b: 60, l: 60, r: 30 },
+          hovermode: 'x unified',
+          dragmode: false, // Disable dragging
+          xaxis: {
+            title: { text: 'Date', font: { color: '#6B7280' } },
+            tickfont: { color: '#6B7280' },
+            gridcolor: '#F3F4F6',
+            linecolor: '#E5E7EB',
+            fixedrange: true // Disable zoom
+          },
+          yaxis: {
+            title: { text: 'Problems Solved', font: { color: '#6B7280' } },
+            tickfont: { color: '#6B7280' },
+            gridcolor: '#F3F4F6',
+            linecolor: '#E5E7EB',
+            fixedrange: true // Disable zoom
+          },
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)',
+          showlegend: false,
+          hoverlabel: {
+            bgcolor: '#FFFFFF',
+            bordercolor: '#E5E7EB',
+            font: { color: '#111827' }
+          }
+        }}
+        config={{
+          responsive: true,
+          displaylogo: false,
+          scrollZoom: false,
+          doubleClick: false,
+          modeBarButtonsToRemove: [
+            'zoom2d', 'pan2d', 'select2d', 'lasso2d',
+            'zoomIn2d', 'zoomOut2d', 'autoScale2d',
+            'hoverClosestCartesian', 'hoverCompareCartesian',
+            'toggleSpikelines', 'sendDataToCloud', 'toggleHover',
+            'resetScale2d'
+          ],
+          displayModeBar: false
+        }}
+        style={{ width: '100%' }}
+      />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full overflow-y-auto p-2">
             <div className="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 h-full">
