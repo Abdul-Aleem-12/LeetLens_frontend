@@ -6,12 +6,16 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-black py-4 px-6">
+    <nav className="w-full bg-black py-2 px-4">
       <div className="flex items-center justify-between">
-          {/* Logo */}
+      <div className="flex items-center gap-2">
+          <Link to="/">
+            <img className='h-10 w-10 ' src='/image.png' alt="LeetLens Logo" />
+          </Link>
           <Link to="/" className="text-white text-xl l:text-3xl font-extrabold l:font-bold font-sans raleway-st">
             LeetLens
-        </Link>
+          </Link>
+        </div>
 
         {/* Hamburger button (visible on mobile) */}
         <div className="sm:hidden">

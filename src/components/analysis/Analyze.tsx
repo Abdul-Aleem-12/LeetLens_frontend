@@ -12,9 +12,8 @@ import TopicDataBars from './TopicDataBars';
 import type { LeetCodeData } from '../../LeetCodeData';
 import Radar from './Radar';
 import ContestStats from './ContestStats';
-
-
-
+import AiSummaryPanel from '.././AiSummary';
+//import Score from '.././Score';
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -34,29 +33,10 @@ const Analyze = () => {
     total: data.totalSolved || 0,
   };
 
-  // return (
-  //   <div>
-  //     <div className="grid grid-col mt-10 lg:pl-10 lg:pr-10 px-2 text-7xl justify-start raleway-st-bold">
-  //       <Greeting username={data.profile.realName}/>
-  //       <Summary data={data} />
-  //       <div className='grid grid-cols-1 sm:grid-cols-2 mt-3 gap-3 mr-3'>
-  //         <Diffculty_PieChart difficultyData={difficultyStats} />
-  //         <Badges badges={data.badges} />
-  //       </div>
-  //       <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
-  //       <div  className='mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 min-h-[400px] h-full w-full'>
-  //         <SubmissionStats submissionCalendar={data.submissionCalendar} />
-  //         <Topic skills={data.skills} />
-  //       </div>
-  //       <MostSolved skills={data.skills} />
-  //       <TopicDataBars skills={data.skills} />
-  //       <Radar skills={data.skills} />
-  //     </div>
-  //   </div>
-  // );
   return(
     <div className='mt-5 mx-5'>
       <Greeting username={data.profile.realName} />
+      {/* <Score skills={data.skills} /> */}
       <div className="mt-5 items-stretch w-full">
           <Summary data={data} />
       </div>
@@ -74,6 +54,17 @@ const Analyze = () => {
         </div>
         <TopicDataBars skills={data.skills} />
         < Radar skills={data.skills} />
+        <div className='mt-5 w-full'>
+        <AiSummaryPanel 
+          username={data.username} 
+          userData={{
+            totalSolved: data.totalSolved,
+            easySolved: data.easySolved,
+            mediumSolved: data.mediumSolved,
+            hardSolved: data.hardSolved
+          }} 
+        />
+      </div>
       </div>
   );
 };

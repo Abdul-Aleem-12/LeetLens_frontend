@@ -178,7 +178,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
   }
 
   const suggestions = parseSuggestions(summaryData.suggestions);
-
+  console.log("Parsed suggestions:", suggestions);
   return (
     <div className='rounded-2xl' style={{
       width: '100%',
