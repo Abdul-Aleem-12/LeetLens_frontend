@@ -29,13 +29,15 @@ const Searchbar = () => {
 
     try {
       setSubmitting(true);
-      const res = await axios.get(`${backendUrl}/${username.trim()}`, { timeout: 5000 });
+      const res = await axios.get(`${backendUrl}/${enocoded_username.trim()}`, { timeout: 15000 });
       console.log(res.data);
       setError('');
       navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
     } catch (err: any) {
       if (err.response?.status === 400) {
-        setError("Username not found. Check-spelling.");
+        setError(err.response.data.error );
+      } else if (!err.response) {
+        setError("Server is unreachable, Please try again.");
       } else {
         setError("Something went wrong. Please try again later.");
       }
@@ -93,7 +95,7 @@ const Searchbar = () => {
           <button
             type="submit"
             disabled={submitting}
-            className={` h-14 clash-grotesk flex items-center gap-2 relative px-5 py-2 xl:px-3 xl:py-3.5 xl:top-0 md:top-10 top-6 rounded-xl font-semibold text-lg md:text-xl shadow-md transition-all duration-300 cursor-pointer
+            className={` h-14 clash-grotesk flex items-center gap-2 relative px-5 py-2 xl:px-3 xl:py-3.5 xl:top-0 md:top-6 lg:top-0 top-6 rounded-xl font-semibold text-lg md:text-xl shadow-md transition-all duration-300 cursor-pointer
               ${submitting ? 'bg-purple-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white hover:shadow-purple-500/40 hover:scale-101 '}`}
           >
             {submitting ? (

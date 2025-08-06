@@ -1,3 +1,29 @@
+
+export interface Skill {
+  tagName: string;
+  problemsSolved: number;
+}
+
+export interface Badge {
+  id: string;
+  displayName: string;
+  icon: string;
+}
+
+export interface ContestBadge {
+  id: string;
+  displayName: string;
+  icon: string;
+  name: string;
+}
+
+export interface AISummary {
+  summary: string;
+  weaknesses: string[];
+  score: number;
+  suggestions: string[];
+}
+
 export interface LeetCodeData {
   username: string;
   profile: {
@@ -16,37 +42,19 @@ export interface LeetCodeData {
   submissionCalendar: {
     [timestamp: string]: number;
   };
-  badges: {
-    id: string;
-    displayName: string;
-    icon: string;
-  }[];
+  badges: Badge[];
   contestStats: {
     attendedContestsCount: number;
     rating: number;
     globalRanking: number;
     totalParticipants: number;
     topPercentage: number;
-    badge: {
-      id: string;
-      displayName: string;
-      icon: string;
-      name: string;
-      };
+    badge: ContestBadge;
   };
   skills: {
     advanced: Skill[];
     intermediate: Skill[];
     fundamental: Skill[];
   };
-}
-
-export interface Skill {
-  tagName: string;
-  problemsSolved: number;
-}
-export interface Badge {
-  id: string;
-  displayName: string;
-  icon: string;
+  aiSummary?: AISummary;
 }

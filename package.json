@@ -11,8 +11,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@tailwindcss/vite": "^4.1.6",
+    "antd": "^5.26.6",
     "axios": "^1.9.0",
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.510.0",
     "plotly.js": "^3.0.1",
     "plotly.js-dist": "^3.0.1",

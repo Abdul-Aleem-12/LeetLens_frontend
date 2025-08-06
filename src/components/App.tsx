@@ -52,6 +52,7 @@ function App() {
       <Routes>
         <Route path="/" element={[<Intro />, <Searchbar />]} />
         <Route path="/analyze/:username" element={<Analyze />} />
+        
       </Routes>
       <Footer />
     </main>

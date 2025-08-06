@@ -5,51 +5,66 @@ import Greeting from './greet';
 import Badges from './badges';
 import SolvesOverTimeLineChart from './SolvesOverTime';
 import Summary from './Summary';
-import SubmissionStats from './SubmissionStats';
 import MostSolved from './MostSolved';
 import Topic from './Topic';
 import TopicDataBars from './TopicDataBars';
-import type { LeetCodeData } from '../../LeetCodeData';
+import type { AISummary, LeetCodeData} from '../../LeetCodeData';
 import Radar from './Radar';
-
-
-
+import AiSummaryPanel from '../AiSummary';
+import Score from './Score';
 
 const Analyze = () => {
+  console.log('Analyze component opened');
   const navigate = useNavigate();
   const location = useLocation();
-  const data = (location.state?.data ?? null) as LeetCodeData | null;
+  const userData = location.state?.data as LeetCodeData | null;
+
   useEffect(() => {
-    if (!data) {
+    if (!userData) { // Changed this condition
       navigate('/', { replace: true });
     }
-  }, [data, navigate]);
-
-  if (!data) return null;
+  }, [userData, navigate]);
+  
+  if (!userData) return null;
+  
   const difficultyStats = {
-    easy: data.easySolved || 0,
-    medium: data.mediumSolved || 0,
-    hard: data.hardSolved || 0,
-    total: data.totalSolved || 0,
+    easy: userData.easySolved || 0,
+    medium: userData.mediumSolved || 0,
+    hard: userData.hardSolved || 0,
+    total: userData.totalSolved || 0,
   };
 
   return (
-    <div>
-      <div className="grid grid-col mt-10 lg:pl-10 lg:pr-10 px-2 text-7xl justify-start raleway-st-bold">
-        <Greeting username={data.profile.realName}/>
-        <Summary data={data} />
-        <div className='grid grid-cols-1 sm:grid-cols-2 mt-3 gap-3 mr-3'>
-          <Diffculty_PieChart difficultyData={difficultyStats} />
-          <Badges badges={data.badges} />
-        </div>
-        <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
-        <div  className='mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 min-h-[400px] h-full w-full'>
-          <SubmissionStats submissionCalendar={data.submissionCalendar} />
-          <Topic skills={data.skills} />
-        </div>
-        <MostSolved skills={data.skills} />
-        <TopicDataBars skills={data.skills} />
-        <Radar skills={data.skills} />
+    <div className='mt-5 mx-5'>
+      <Greeting username={userData.profile.realName} />
+      < Score score={10} />
+      <div className="mt-5 items-stretch w-full">
+          <Summary data={userData} />
+      </div>
+        
+      {/* ContestStats - takes 20% width with height matching */}
+      <div className=" sm:h-118 flex flex-col sm:flex-row gap-3 mt-5">
+        <ContestStats contestStats={userData.contestStats} />
+        <Diffculty_PieChart difficultyData={difficultyStats} />
+        <Badges badges={userData.badges} />
+      </div>
+      <SolvesOverTimeLineChart submissionCalendar={userData.submissionCalendar} />
+      <div className='flex flex-col sm:flex-row gap-3 mt-5'>
+        <Topic skills={userData.skills} />
+        <MostSolved skills={userData.skills} />
+      </div>
+      <TopicDataBars skills={userData.skills} />
+      <Radar skills={userData.skills} />
+      <div className='mt-5 w-full'>
+        <AiSummaryPanel 
+          username={userData.username} 
+          userData={{
+            totalSolved: userData.totalSolved,
+            easySolved: userData.easySolved,
+            mediumSolved: userData.mediumSolved,
+            hardSolved: userData.hardSolved
+          }} 
+        />
       </div>
     </div>
   );
