@@ -1,6 +1,21 @@
+// Replace the current imports with these:
 import React, { useEffect, useState } from 'react';
-import { Card, Tag, Typography, Space, Divider, Alert, Tooltip, Row, Col, Spin } from 'antd';
-import { ThunderboltTwoTone, FireTwoTone, WarningTwoTone, StarTwoTone, BulbTwoTone } from '@ant-design/icons';
+import { Card } from 'antd';
+import { Typography } from 'antd';
+import { Space } from 'antd';
+import { Divider } from 'antd';
+import { Alert } from 'antd';
+import { Tooltip } from 'antd';
+import { Row, Col } from 'antd';
+import { Spin } from 'antd';
+import { Tag } from 'antd';
+import { 
+  ThunderboltTwoTone, 
+  FireTwoTone, 
+  WarningTwoTone, 
+  StarTwoTone, 
+  BulbTwoTone 
+} from '@ant-design/icons';
 import axios from 'axios';
 
 const { Text, Paragraph } = Typography;
@@ -167,13 +182,14 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
 
   if (!summaryData) {
     return (
-      <Alert
-        message="No user data available"
-        description="Cannot generate summary without user statistics."
-        type="warning"
-        showIcon
-        style={{ margin: '20px' }}
-      />
+      <div style={{ margin: '20px' }}>
+        <Alert
+          message="No user data available"
+          description="Cannot generate summary without user statistics."
+          type="warning"
+          showIcon
+        />
+      </div>
     );
   }
 
@@ -229,9 +245,8 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
           backdropFilter: "blur(2px)"
         }}
       >
-        <Row gutter={[32, 28]}>
-          {/* LEFT COLUMN */}
-          <Col xs={24} lg={15}>
+        <Row gutter={[32, 28]} style={{ width: '100%' }}>
+          <Col xs={24} lg={15} style={{ width: '100%' }}>
             {/* Summary */}
             <div
               style={{
