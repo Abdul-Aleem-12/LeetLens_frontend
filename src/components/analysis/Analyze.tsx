@@ -13,7 +13,7 @@ import type { LeetCodeData } from '../../LeetCodeData';
 import Radar from './Radar';
 import ContestStats from './ContestStats';
 import AiSummaryPanel from '.././AiSummary';
-//import Score from '.././Score';
+// import Score from '.././Score';
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -54,7 +54,6 @@ const Analyze = () => {
         </div>
         <TopicDataBars skills={data.skills} />
         < Radar skills={data.skills} />
-        <div className='mt-5 w-full'>
         <AiSummaryPanel 
           username={data.username} 
           userData={{
@@ -64,7 +63,6 @@ const Analyze = () => {
             hardSolved: data.hardSolved
           }} 
         />
-      </div>
       </div>
   );
 };
