@@ -35,7 +35,7 @@ const Analyze = () => {
 
   return(
     <div className='mt-5 mx-5'>
-      <Greeting username={data.profile.realName} />
+      <Greeting username={data.profile.realName} image={data.profile.avatar} />
       <div className="mt-5 items-stretch w-full">
           <Summary data={data} />
       </div>
