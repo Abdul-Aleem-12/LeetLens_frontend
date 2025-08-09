@@ -1,274 +1,279 @@
+import React, { useMemo, useState } from "react";
+import { Progress, Typography, Tooltip } from "antd";
+import { InfoCircleOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 
-//                  working on this now 
+const { Title, Text } = Typography;
 
+interface Skill {
+  tagName: string;
+  problemsSolved: number;
+}
 
-// import React, { useMemo, useState } from 'react';
-// import { Progress, Typography, Badge } from 'antd';
-// const { Title, Text } = Typography;
+interface ScoreProps {
+  skills: {
+    advanced: Skill[];
+    intermediate: Skill[];
+    fundamental: Skill[];
+  };
+}
 
-// interface ScoreProps {
-//   skills: {
-//     advanced:skill[];
-//     intermediate:skill[];
-//     fundamental:skill[];
-//   }
-// }
-// interface skill {
-//   tagName: string;
-//   problemsSolved: number;
-// }
+const levelDetails = {
+  Beginner: {
+    label: "Beginner",
+    dsTopics: ["Array", "String", "Linked List", "Stack", "Queue", "Hash Table"],
+    patternTopics: [
+      "Matrix",
+      "Sorting",
+      "Sliding Window",
+      "Two Pointers",
+      "Binary Search",
+      "Greedy",
+    ],
+    explanation: "Basic linear data structures and standard patterns.",
+    totalTopics: 12,
+  },
+  Intermediate: {
+    label: "Intermediate",
+    dsTopics: [
+      "Array",
+      "String",
+      "Linked List",
+      "Stack",
+      "Queue",
+      "Hash Table",
+    ],
+    patternTopics: [
+      "Matrix",
+      "Sorting",
+      "Sliding Window",
+      "Two Pointers",
+      "Binary Search",
+      "Greedy",
+      "Bit Manipulation",
+      "Backtracking",
+      "Dynamic Programming",
+    ],
+    explanation:
+      "All beginner topics, plus recurssion patterns and bit manipulation.",
+    totalTopics: 15,
+  },
+  Advanced: {
+    label: "Advanced",
+    dsTopics: [
+      "Array",
+      "String",
+      "Linked List",
+      "Stack",
+      "Queue",
+      "Hash Table",
+      "Binary Tree",
+      "Tree",
+      "Graph",
+      "Segment Tree",
+      "Trie",
+    ],
+    patternTopics: [
+      "Matrix",
+      "Sorting",
+      "Sliding Window",
+      "Two Pointers",
+      "Binary Search",
+      "Greedy",
+      "Bit Manipulation",
+      "Backtracking",
+      "Dynamic Programming",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Shortest Path",
+    ],
+    explanation:
+      "Covers all previous plus non-linear DS like trees, graphs, and advanced patterns.",
+    totalTopics: 23,
+  },
+} as const;
 
-// const Score: React.FC<ScoreProps> = ({ skills }) => {
-//   const [level, setLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
+function getTopicScore(solved: number) {
+  if (solved >= 20) return 10;
+  if (solved >= 15) return 8;
+  if (solved >= 10) return 6;
+  if (solved >= 5) return 4;
+  if (solved >= 1) return 2;
+  return 0;
+}
 
-//   const levelConfigs = {
-//     beginner: {
-//       dsTopics: ['Array', 'String', 'Linked List', 'Stack', 'Queue'],
-//       patternTopics: ['Sliding Window', 'Two Pointers', 'Binary Search'],
-//     },
-//     intermediate: {
-//       dsTopics: ['Array', 'String', 'Linked List', 'Stack', 'Queue', 'Recursion', 'Backtracking', 'DP'],
-//       patternTopics: ['Sliding Window', 'Two Pointers', 'Binary Search', 'DFS', 'Greedy'],
-//     },
-//     advanced: {
-//       dsTopics: ['Array', 'String', 'Linked List', 'Stack', 'Queue', 'Recursion', 'Backtracking', 'DP', 'Trie', 'Union Find', 'Graph', 'Tree'],
-//       patternTopics: ['Sliding Window', 'Two Pointers', 'Binary Search', 'DFS', 'Greedy', 'Topological Sort', 'Bit Manipulation'],
-//     },
-//   };
+function getColor(score: number) {
+  if (score <= 2) return "#f5222d";
+  if (score <= 5) return "#fa8c16";
+  if (score <= 7) return "#fadb14";
+  if (score <= 9) return "#52c41a";
+  return "#389e0d";
+}
 
-//   const computeScore = (dsTopics: string[], patternTopics: string[]) => {
-//     const findScore = (topics: string[]) => {
-//       let total = 0;
-//       let count = 0;
+const Score: React.FC<ScoreProps> = ({ skills }) => {
+  const [level, setLevel] = useState<"Beginner" | "Intermediate" | "Advanced">(
+    "Beginner"
+  );
 
-//       for (const topic of topics) {
-//         const match = skills.find((s) => s.topic.toLowerCase() === topic.toLowerCase());
-//         if (match) {
-//           total += match.score;
-//           count++;
-//         }
-//       }
+  const { dsTopics, patternTopics, explanation, totalTopics } =
+    levelDetails[level];
 
-//       return count === 0 ? 0 : total / count;
-//     };
+  const allSkills = useMemo(
+    () => [...skills.fundamental, ...skills.intermediate, ...skills.advanced],
+    [skills]
+  );
 
-//     const dsScore = findScore(dsTopics);
-//     const patternScore = findScore(patternTopics);
-//     const finalScore = (dsScore + 2 * patternScore) / 3;
+  const normalize = (s: string) => s.trim().toLowerCase();
 
-//     return {
-//       dsScore: Math.round(dsScore),
-//       patternScore: Math.round(patternScore),
-//       finalScore: Math.round(finalScore),
-//     };
-//   };
+  const { totalMark, topicSolved } = useMemo(() => {
+    const solvedMap: Record<string, number> = {};
+    let total = 0;
 
-//   const { dsScore, patternScore, finalScore } = useMemo(() => {
-//     const config = levelConfigs[level];
-//     return computeScore(config.dsTopics, config.patternTopics);
-//   }, [level, skills]);
+    [...dsTopics, ...patternTopics].forEach((topic) => {
+      const skill =
+        allSkills.find((s) => normalize(s.tagName) === normalize(topic)) ||
+        null;
+      const solved = skill ? skill.problemsSolved : 0;
+      const score = getTopicScore(solved);
+      solvedMap[topic] = solved;
+      total += score;
+    });
 
-//   const scoreColor = finalScore > 75 ? '#57e077' : finalScore > 50 ? '#faad14' : '#f5222d';
-//   const badgeStatus = finalScore > 75 ? 'success' : finalScore > 50 ? 'warning' : 'error';
-//   const statusMap = {
-//     success: 'High Potential',
-//     warning: 'On Track',
-//     error: 'Needs Work',
-//   };
+    return { totalMark: total, topicSolved: solvedMap };
+  }, [dsTopics, patternTopics, allSkills]);
 
-//   return (
-//     <div
-//       style={{
-//         background: 'white',
-//         borderRadius: 16,
-//         padding: 24,
-//         minHeight: 320,
-//         textAlign: 'center',
-//         boxShadow: '0 2px 16px rgba(90,36,249,0.06)',
-//       }}
-//     >
-//       <div className="flex justify-between items-center mb-4">
-//         <Title level={4} style={{ fontWeight: 700, letterSpacing: 0.5 }}>
-//           Interview Readiness
-//         </Title>
+  const percent = Math.ceil((totalMark / (totalTopics * 10)) * 100);
 
-//         <div style={{ display: 'flex', gap: 8 }}>
-//           {(['beginner', 'intermediate', 'advanced'] as const).map((lvl) => (
-//             <button
-//               key={lvl}
-//               onClick={() => setLevel(lvl)}
-//               className={`px-3 py-1 rounded-full text-sm font-medium transition ${
-//                 level === lvl
-//                   ? 'bg-blue-600 text-white'
-//                   : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
-//               }`}
-//             >
-//               {lvl.charAt(0).toUpperCase() + lvl.slice(1)}
-//             </button>
-//           ))}
-//         </div>
-//       </div>
+  const scoreColor =
+    percent >= 80 ? "#57e077" : percent >= 60 ? "#faad14" : "#f5222d";
+  const badgeText =
+    percent == 100 ? "You are Ready" : percent >= 80 ? "High Potential" : percent >= 60 ? "On Track" :percent >= 50 ? "Halfway there":percent == 0 ? "Best day to start is Today" : "Needs Work";
 
-//       <Progress
-//         type="dashboard"
-//         percent={finalScore}
-//         strokeColor={{
-//           '0%': '#42e695',
-//           '100%': '#6a6aff',
-//         }}
-//         strokeWidth={12}
-//         trailColor="#ede7fe"
-//         size={155}
-//         style={{ marginBottom: 16 }}
-//         format={(percent) => (
-//           <div>
-//             <span
-//               style={{
-//                 fontSize: 40,
-//                 color: scoreColor,
-//                 fontWeight: 700,
-//                 textShadow: scoreColor === '#57e077' ? '0 2px 8px #d2f5db' : undefined,
-//               }}
-//             >
-//               {percent}
-//             </span>
-//             <div
-//               style={{
-//                 fontSize: 16,
-//                 color: scoreColor,
-//                 fontWeight: 500,
-//                 marginTop: 2,
-//               }}
-//             >
-//               {statusMap[badgeStatus as keyof typeof statusMap]}
-//             </div>
-//           </div>
-//         )}
-//       />
+  return (
+    <div className="bg-white rounded-2xl pt-6 min-h-[320px] text-center shadow-[0_2px_16px_rgba(90,36,249,0.06)] clash-grotesk mt-4">
+      <div className="mb-5 px-1 raleway-st-bold">
+        <Title
+          level={4}
+          className="font-bold tracking-[0.5px] m-0 text-center"
+        >
+          Interview Readiness
+        </Title>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(90px,max-content))] gap-1 mt-3 justify-center">
+          {(["Beginner", "Intermediate", "Advanced"] as const).map((lvl) => (
+            <button
+              key={lvl}
+              className={`px-3 py-1 rounded-full text-sm font-medium transition flex items-center justify-center gap-1 whitespace-nowrap w-full ${
+                level === lvl
+                  ? "bg-blue-600 text-white border border-blue-600"
+                  : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+              }`}
+              onClick={() => setLevel(lvl)}
+              type="button"
+            >
+              {levelDetails[lvl].label}
+              <Tooltip title={levelDetails[lvl].explanation}>
+                <InfoCircleOutlined
+                  style={{ fontSize: 15, color: "#4096ff", marginLeft: 3 }}
+                />
+              </Tooltip>
+            </button>
+          ))}
+        </div>
+      </div>
 
-//       <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 24 }}>
-//         <div>
-//           <Text type="secondary">DS Score</Text>
-//           <div style={{ fontSize: 18, fontWeight: 'bold' }}>{dsScore} / 100</div>
-//         </div>
-//         <div>
-//           <Text type="secondary">Pattern Score</Text>
-//           <div style={{ fontSize: 18, fontWeight: 'bold' }}>{patternScore} / 100</div>
-//         </div>
-//       </div>
+      <Progress
+        type="dashboard"
+        percent={percent}
+        strokeColor={{
+          "0%": "#42e695",
+          "100%": "#6a6aff",
+        }}
+        strokeWidth={12}
+        trailColor="#ede7fe"
+        size={155}
+        className="mb-4"
+        format={() => (
+          <div>
+            <span
+              className="text-[38px] font-bold"
+              style={{
+                color: scoreColor,
+                textShadow:
+                  scoreColor === "#57e077" ? "0 2px 8px #d2f5db" : undefined,
+              }}
+            >
+              {percent}
+            </span>
+            <div
+              className="text-[15px] font-medium mt-0.5 px-5"
+              style={{ color: scoreColor }}
+            >
+              {badgeText}
+            </div>
+          </div>
+        )}
+      />
 
-//       <div style={{ marginTop: 24 }}>
-//         <Badge
-//           status={badgeStatus as any}
-//           text={<Text style={{ fontSize: 13, color: scoreColor }}>{statusMap[badgeStatus as keyof typeof statusMap]}</Text>}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
+      <div className="flex gap-6 flex-wrap justify-center mt-6 px-4">
+        <div className="flex-1 min-w-[220px] max-w-[500px]">
+          <Text strong className="text-[20px] mb-3 block">
+            {level} Level Data Structures
+          </Text>
+          {dsTopics.map((topic) => {
+            const solved = topicSolved[topic] || 0;
+            const topicScore = getTopicScore(solved);
+            const color = getColor(topicScore);
+            return (
+              <div key={topic} className="text-left mb-3 w-full">
+                <div className="flex justify-between mb-1 font-medium">
+                  <span>{topic}</span>
+                  {topicScore === 10 && (
+                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                  )}
+                </div>
+                <Progress
+                  percent={Math.min((solved / 20) * 100, 100)}
+                  strokeColor={color}
+                  showInfo={false}
+                />
+                <div className="text-xs text-gray-600 mt-0.5">
+                  {solved} problems solved
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-// export default Score;
+        <div className="flex-1 min-w-[220px] max-w-[500px]">
+          <Text strong className="text-[16px] mb-3 block">
+          {level} Level Patterns
+          </Text>
+          {patternTopics.map((topic) => {
+            const solved = topicSolved[topic] || 0;
+            const topicScore = getTopicScore(solved);
+            const color = getColor(topicScore);
+            return (
+              <div key={topic} className="text-left mb-3 w-full">
+                <div className="flex justify-between mb-1 font-medium">
+                  <span>{topic}</span>
+                  {topicScore === 10 && (
+                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                  )}
+                </div>
+                <Progress
+                  percent={Math.min((solved / 20) * 100, 100)}
+                  strokeColor={color}
+                  showInfo={false}
+                />
+                <div className="text-xs text-gray-600 mt-0.5">
+                  {solved} problems solved
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-
-
-
-
-
-
-
-
-
-
-
-// //                 old score card
-// // import react from 'react';
-// // import React, { useEffect, useState } from 'react';
-// // import { Card, Progress, Tag, Typography, Space, Divider, Alert, Tooltip, Row, Col, Badge, Spin } from 'antd';
-// // import { ThunderboltTwoTone, FireTwoTone, WarningTwoTone, StarTwoTone, BulbTwoTone } from '@ant-design/icons';
-// // const { Title, Text, Paragraph } = Typography;
-
-
-// // interface ScoreProps {
-// //   skills: {
-// //     advanced:skill[];
-// //     intermediate:skill[];
-// //     fundamental:skill[];
-// //   }
-// // }
-// // interface skill {
-// //   tagName: string;
-// //   problemsSolved: number;
-// // }
-
-// // const Score: React.FC<ScoreProps> = (skills ) => {
-// //   const score = 0;
-// //   const dataStructureScore = 0;
-// //   const patternScore = 0;
-
-
-// //   const scoreColor = score > 75 ? '#57e077' : score > 50 ? '#faad14' : '#f5222d';
-// //   const badgeStatus = score > 75 ? 'success' : score > 50 ? 'warning' : 'error';
-// //   const statusMap = {
-// //     success: 'High Potential',
-// //     warning: 'On Track',
-// //     error: 'Needs Work',
-// //   };
-
-// //   return (
-// //     <div
-// //       style={{
-// //         background: 'white',
-// //         borderRadius: 16,
-// //         padding: 24,
-// //         minHeight: 260,
-// //         textAlign: 'center',
-// //         boxShadow: '0 2px 16px rgba(90,36,249,0.06)',
-// //       }}
-// //     >
-// //       <Title level={4} style={{ marginBottom: 12, fontWeight: 700, letterSpacing: 0.5 }}>
-// //         Interview Readiness
-// //       </Title>
-// //       <Progress
-// //         type="dashboard"
-// //         percent={score}
-// //         strokeColor={{
-// //           '0%': '#42e695',
-// //           '100%': '#6a6aff',
-// //         }}
-// //         strokeWidth={12}
-// //         trailColor="#ede7fe"
-// //         size={155}
-// //         style={{ marginBottom: 16 }}
-// //         format={(percent) => (
-// //           <div>
-// //             <span
-// //               style={{
-// //                 fontSize: 40,
-// //                 color: scoreColor,
-// //                 fontWeight: 700,
-// //                 textShadow: scoreColor === '#57e077' ? '0 2px 8px #d2f5db' : undefined,
-// //               }}
-// //             >
-// //               {percent}
-// //             </span>
-// //             <div
-// //               style={{
-// //                 fontSize: 16,
-// //                 color: scoreColor,
-// //                 fontWeight: 500,
-// //                 marginTop: 2,
-// //               }}
-// //             >
-// //               {Object.values(statusMap)[['success', 'warning', 'error'].indexOf(badgeStatus)]}
-// //             </div>
-// //           </div>
-// //         )}
-// //       />
-// //       <Badge
-// //         status={badgeStatus as any}
-// //         text={<Text style={{ fontSize: 13, color: scoreColor }}>{statusMap[badgeStatus as keyof typeof statusMap]}</Text>}
-// //       />
-// //     </div>
-// //   );
-// // };
-// // export default Score;
+export default Score;

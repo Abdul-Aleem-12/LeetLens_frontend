@@ -13,7 +13,7 @@ import type { LeetCodeData } from '../../LeetCodeData';
 import Radar from './Radar';
 import ContestStats from './ContestStats';
 import AiSummaryPanel from '.././AiSummary';
-// import Score from '.././Score';
+import Score from '.././Score';
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -36,12 +36,9 @@ const Analyze = () => {
   return(
     <div className='mt-5 mx-5'>
       <Greeting username={data.profile.realName} />
-      {/* <Score skills={data.skills} /> */}
       <div className="mt-5 items-stretch w-full">
           <Summary data={data} />
       </div>
-        
-        {/* ContestStats - takes 20% width with height matching */}
         <div className=" sm:h-118 flex flex-col sm:flex-row gap-3 mt-5">
           <ContestStats contestStats={data.contestStats} />
           < Diffculty_PieChart difficultyData={difficultyStats} />
@@ -54,6 +51,7 @@ const Analyze = () => {
         </div>
         <TopicDataBars skills={data.skills} />
         < Radar skills={data.skills} />
+        <Score skills={data.skills} />  
         <AiSummaryPanel 
           username={data.username} 
           userData={{

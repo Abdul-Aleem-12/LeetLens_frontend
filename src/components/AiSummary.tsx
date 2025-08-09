@@ -178,7 +178,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
     return (
       <div className="m-1 sm:m-5">
         <Alert
-          message="No user data available"
+          message="No user data available at the moment try reloading the page."
           description="Cannot generate summary without user statistics."
           type="warning"
           showIcon
