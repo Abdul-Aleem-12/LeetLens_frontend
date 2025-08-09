@@ -1,6 +1,6 @@
 import type { Badge } from "../../LeetCodeData";
 import { useState, useEffect } from 'react';
-import { badgeFallbacks } from './badgeFallBack'; // Import your fallback mapping
+import { badgeFallbacks } from './badgeFallBack'; 
 
 type BadgeCardProps = {
   badge: Badge & {
@@ -14,7 +14,6 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
     attempt: 'original' as 'original' | 'fallback' | 'default'
   });
 
-  // Reset state when badge changes
   useEffect(() => {
     setCurrentImage({
       src: badge.icon,
@@ -24,7 +23,6 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
 
   const handleImageError = () => {
     if (currentImage.attempt === 'original') {
-      // First try the badgeFallbacks mapping
       const fallbackImage = badgeFallbacks[badge.displayName];
       if (fallbackImage) {
         setCurrentImage({
@@ -32,23 +30,19 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
           attempt: 'fallback'
         });
       } else {
-        // If no fallback mapping exists, go straight to default
         setCurrentImage({
           src: '/defaultBadge.png',
           attempt: 'default'
         });
       }
     } else if (currentImage.attempt === 'fallback') {
-      // If fallback image fails, use default
       setCurrentImage({
         src: '/defaultBadge.png',
         attempt: 'default'
       });
     }
-    // No further attempts after default
   };
 
-  // Unique key to force re-render when image changes
   const imageKey = `${badge.id}-${currentImage.attempt}`;
 
   return (
@@ -62,7 +56,7 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
               alt={badge.displayName} 
               className="w-full h-full object-contain"
               onError={handleImageError}
-              loading="lazy" // Optional: lazy load images
+              loading="lazy"
             />
           </div>
         </div>

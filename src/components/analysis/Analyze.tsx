@@ -39,29 +39,29 @@ const Analyze = () => {
       <div className="mt-5 items-stretch w-full">
           <Summary data={data} />
       </div>
-        <div className=" sm:h-118 flex flex-col sm:flex-row gap-3 mt-5">
-          <ContestStats contestStats={data.contestStats} />
-          < Diffculty_PieChart difficultyData={difficultyStats} />
-          < Badges badges={data.badges} />
-        </div>
-        <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
-        <div className='flex flex-col sm:flex-row gap-3 mt-5'>
-          < Topic skills={data.skills} />
-          < MostSolved skills={data.skills} />
-        </div>
-        <TopicDataBars skills={data.skills} />
-        < Radar skills={data.skills} />
-        <Score skills={data.skills} /> 
-        <AiSummaryPanel 
-          username={data.username} 
-          userData={{
-            totalSolved: data.totalSolved,
-            easySolved: data.easySolved,
-            mediumSolved: data.mediumSolved,
-            hardSolved: data.hardSolved
-          }} 
-        />
+      <div className="  flex flex-col sm:flex-row gap-3 mt-5">
+        <ContestStats contestStats={data.contestStats} submissionCalendar={data.submissionCalendar} />
+        < Diffculty_PieChart difficultyData={difficultyStats} />
+        < Badges badges={data.badges} submissionCalendar={data.submissionCalendar} />
       </div>
+      <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
+      <div className='flex flex-col sm:flex-row gap-3 mt-5'>
+        < Topic skills={data.skills} />
+        < MostSolved skills={data.skills} />
+      </div>
+      <TopicDataBars skills={data.skills} />
+      < Radar skills={data.skills} />
+      <Score skills={data.skills} /> 
+      <AiSummaryPanel 
+        username={data.username} 
+        userData={{
+          totalSolved: data.totalSolved,
+          easySolved: data.easySolved,
+          mediumSolved: data.mediumSolved,
+          hardSolved: data.hardSolved
+        }} 
+      />
+    </div>
   );
 };
 

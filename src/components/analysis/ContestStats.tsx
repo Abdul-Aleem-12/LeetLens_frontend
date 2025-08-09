@@ -10,14 +10,17 @@ interface ContestStats {
     name: string;
   };
 }
-
+interface daysSub{
+  [key: string]: number;
+}
 interface ContestStatsProps {
   contestStats?: ContestStats;
+  submissionCalendar: daysSub;
 }
 
 const ContestStats = ({ contestStats }: ContestStatsProps) => {
     return (
-      <div className="w-full h-full"> {/* Key change */}
+      <div className="w-full h-500px">
         {contestStats ? (
             <Card className="shadow-md h-full flex flex-col justify-between">
             <CardContent className="p-6 flex flex-col justify-between flex-grow">

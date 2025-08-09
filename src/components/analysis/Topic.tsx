@@ -32,7 +32,7 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
               color: '#fff'
             },
             marker: {
-              colors: ['#10B981', '#F59E0B', '#EF4444'], // Modern color palette
+              colors: ['#10B981', '#F59E0B', '#EF4444'], 
               line: {
                 color: '#fff',
                 width: 1
@@ -51,7 +51,6 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
               family: 'Inter, sans-serif',
               size: 20,
               color: '#111827',
-              //weight: 'bold'
             },
             x: 0.5,
             xanchor: 'center',
@@ -63,7 +62,6 @@ const TopicCategoryChart: React.FC<Props> = ({ skills }) => {
                 family: 'Inter, sans-serif',
                 size: 18,
                 color: '#111827',
-                //weight: 'bold'
               },
               showarrow: false,
               text: `Total<br>${totalProblems}`,

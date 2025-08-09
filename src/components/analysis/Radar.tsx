@@ -19,7 +19,6 @@ interface Skill {
     [...data]
       .sort((a, b) => b.problemsSolved - a.problemsSolved)
       .slice(0, 10);
-      //colors: ['#10B981', '#F59E0B', '#EF4444'],
   const categories = [
     { title: 'Fundamental', data: getTop10(skills.fundamental), color: '#10B981' },
     { title: 'Intermediate', data: getTop10(skills.intermediate), color: '#F59E0B' },

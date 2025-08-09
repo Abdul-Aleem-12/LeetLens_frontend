@@ -19,7 +19,6 @@ const Searchbar = () => {
   };
 
   const handleSearch = async () => {
-                  // removed test because iam going to log all searches irrespective of valid or not
     const enocoded_username = encodeURIComponent(username);
     if (!username.trim()) {
       setError("Please enter a username.");
@@ -58,7 +57,6 @@ const Searchbar = () => {
 
   return (
     <div className='flex flex-col'>
-      {/* Add keyframes directly in a style tag */}
       <style>
         {`
           @keyframes shake {

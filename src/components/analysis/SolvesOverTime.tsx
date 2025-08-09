@@ -22,15 +22,11 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
   const cur_year = new Date().getFullYear();
   const [width] = useWindowSize();
   const isMobile = width < 640;
-  
-  // Set default to 30 days on mobile
   const [timeRange, setTimeRange] = useState<'30' | '60' | '100'>(isMobile ? '30' : '100');
   const [activeTab, setActiveTab] = useState<'chart' | 'stats'>('chart');
 
-  // Fixed height for both tabs
   const containerHeight = isMobile ? 500 : 550;
 
-  // Process data with time range filter
   const filteredData = Object.entries(submissionCalendar)
     .map(([timestamp, count]) => ({
       date: new Date(Number(timestamp) * 1000),
@@ -42,7 +38,6 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
     })
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  // Calculate statistics
   const totalsubmissions = filteredData.reduce((sum, entry) => sum + entry.count, 0);
   const averagePerDay = filteredData.length > 0 ? (totalsubmissions / filteredData.length).toFixed(2) : '0';
   const maxsubmissions = Math.max(...filteredData.map(entry => entry.count), 0);
@@ -53,7 +48,7 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
       className="relative mt-3 w-full rounded-2xl border border-gray-200 p-6 shadow-lg bg-white"
       style={{ height: `${containerHeight}px` }}
     >
-      {/* Header with interactive controls */}
+
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div className="flex items-center gap-3">
           <Activity className="w-6 h-6 text-indigo-600" />
@@ -78,7 +73,6 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
         </div>
       </div>
 
-      {/* Time range selector */}
       <div className="flex justify-center gap-2 mb-6">
         {['30', '60', '100'].map((range) => (
           <button
@@ -95,7 +89,7 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
         ))}
       </div>
 
-      <div className="h-[calc(100%-150px)]"> {/* Fixed height container */}
+      <div className="h-[calc(100%-150px)]"> 
         {activeTab === 'chart' ? (
       <Plot
         data={[
@@ -125,20 +119,20 @@ const submissionsOverTimeLineChart: React.FC<Props> = ({ submissionCalendar }) =
           height: isMobile ? 300 : 350,
           margin: { t: 0, b: 60, l: 60, r: 30 },
           hovermode: 'x unified',
-          dragmode: false, // Disable dragging
+          dragmode: false, 
           xaxis: {
             title: { text: 'Date', font: { color: '#6B7280' } },
             tickfont: { color: '#6B7280' },
             gridcolor: '#F3F4F6',
             linecolor: '#E5E7EB',
-            fixedrange: true // Disable zoom
+            fixedrange: true 
           },
           yaxis: {
             title: { text: 'No.of Submissions', font: { color: '#6B7280' } },
             tickfont: { color: '#6B7280' },
             gridcolor: '#F3F4F6',
             linecolor: '#E5E7EB',
-            fixedrange: true // Disable zoom
+            fixedrange: true 
           },
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',

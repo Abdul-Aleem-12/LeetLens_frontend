@@ -8,7 +8,7 @@ interface Props {
 const formatName = (name: string) => {
   return name
     .split(' ')
-    .filter(Boolean) // remove extra spaces
+    .filter(Boolean)
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
 };
@@ -18,7 +18,6 @@ const Greeting: React.FC<Props> = ({ username, image }) => {
   const [displayText, setDisplayText] = useState('');
   username = formatName(username);
 
-  // Single source of truth for the text
   const fullText = `Hello ${username ?? ''}`;
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const Greeting: React.FC<Props> = ({ username, image }) => {
       const timeout = setTimeout(() => {
         setDisplayText(fullText.substring(0, currentIndex + 1));
         setCurrentIndex((prev) => prev + 1);
-      }, 80); // typing speed
+      }, 80); 
 
       return () => clearTimeout(timeout);
     }

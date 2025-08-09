@@ -16,7 +16,7 @@ function Difficulty_PieChart({ difficultyData }: Props) {
   const { easy, medium, hard, total } = difficultyData;
 
   return (
-    <div className='rounded-2xl border border-gray-200 p-6 shadow-md bg-white w-full h-full'>
+    <div className='rounded-2xl border border-gray-200 p-6 shadow-md bg-white w-full h-500px'>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800 font-serif">
           {/* //<BarChart3 className="text-green-600" /> */}
           Difficulty Distribution

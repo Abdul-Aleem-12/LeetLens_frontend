@@ -10,11 +10,18 @@ function App() {
   console.log("app entered function");
   return (
     <div className="bg-black relative min-h-screen overflow-hidden grad bad" >
-    {/* App Content */}
     <main className="relative z-10 flex flex-col flex-grow">
       <Navbar />
       <Routes>
-        <Route path="/" element={[<Intro />, <Searchbar />]} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Intro />
+              <Searchbar />
+            </>
+          }
+        />
         <Route path="/analyze/:username" element={<Analyze />} />
       </Routes>
       <Footer />

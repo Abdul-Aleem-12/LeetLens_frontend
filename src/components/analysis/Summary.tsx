@@ -14,7 +14,6 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
     submissionCalendar,
   } = data;
 
-  // ------------------ Submission Calendar Analytics ------------------
   const submissionData = Object.entries(submissionCalendar || {})
     .map(([timestamp, count]) => ({
       date: new Date(Number(timestamp) * 1000),
@@ -36,11 +35,9 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
     let currentDate = new Date(submissionData[submissionData.length - 1].date);
     currentDate.setHours(0, 0, 0, 0);
     
-    // Check if last submission was today or yesterday
     const diffToday = Math.floor((today.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
     
-    if (diffToday <= 1) { // Today or yesterday
-      // Check previous days for consecutive submissions
+    if (diffToday <= 1) { 
       for (let i = submissionData.length - 2; i >= 0; i--) {
         const prevDate = new Date(submissionData[i].date);
         prevDate.setHours(0, 0, 0, 0);
