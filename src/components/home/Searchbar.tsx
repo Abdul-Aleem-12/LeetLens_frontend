@@ -39,7 +39,7 @@ const Searchbar = () => {
       if (err.response?.status === 400) {
         setError(err.response.data.error );
       } else if (!err.response) {
-        setError("Server busy,Please try again.");
+        setError("Server busy, Please try once again.");
       } else {
         setError("Unexpected error occurred. Try again later.");
       }
