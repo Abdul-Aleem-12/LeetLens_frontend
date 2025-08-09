@@ -5,9 +5,18 @@ interface Props {
   image: string;
 }
 
+const formatName = (name: string) => {
+  return name
+    .split(' ')
+    .filter(Boolean) // remove extra spaces
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
+
 const Greeting: React.FC<Props> = ({ username, image }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
+  username = formatName(username);
 
   // Single source of truth for the text
   const fullText = `Hello ${username ?? ''}`;
@@ -24,17 +33,18 @@ const Greeting: React.FC<Props> = ({ username, image }) => {
   }, [currentIndex, username, fullText]);
 
   return (
-    <h1 className="text-white text-5xl text-left flex items-center">
-      {displayText}
-      <span className="animate-pulse">|</span>
-      {currentIndex >= fullText.length && (
-        <img
-          src={image}
-          alt="Hello"
-          className="inline-block w-16 h-16 ml-4 rounded-4xl"
-        />
-      )}
-    </h1>
+    <div className='flex'>
+      <img
+            src={image}
+            alt="Hello"
+            className="inline-block w-14 h-14 ml-4 rounded-4xl"
+          />
+      <h1 className="text-white text-2xl sm:text-5xl text-left flex items-center pl-2">
+        {displayText}
+        {currentIndex < fullText.length && <span className="animate-pulse">|</span>}
+        
+      </h1>
+    </div>
   );
 };
 

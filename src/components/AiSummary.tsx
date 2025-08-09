@@ -190,7 +190,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
   const suggestions = parseSuggestions(summaryData.suggestions);
 
   return (
-     <div className="w-full rounded-2xl overflow-hidden min-h-screen mt-5">
+     <div className="w-full rounded-2xl overflow-hidden min-h-screen mt-5 clash-grotesk">
       <Card
         className="w-full rounded-2xl shadow-md border-none"
         styles={{

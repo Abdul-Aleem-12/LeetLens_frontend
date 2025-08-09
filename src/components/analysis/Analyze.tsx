@@ -35,7 +35,7 @@ const Analyze = () => {
 
   return(
     <div className='mt-5 mx-5'>
-      <Greeting username={data.profile.realName} image={data.profile.avatar} />
+      <Greeting username={data.profile.realName} image={data.profile.avatar} /> 
       <div className="mt-5 items-stretch w-full">
           <Summary data={data} />
       </div>
@@ -51,7 +51,7 @@ const Analyze = () => {
         </div>
         <TopicDataBars skills={data.skills} />
         < Radar skills={data.skills} />
-        <Score skills={data.skills} />  
+        <Score skills={data.skills} /> 
         <AiSummaryPanel 
           username={data.username} 
           userData={{

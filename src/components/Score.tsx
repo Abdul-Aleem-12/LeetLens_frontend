@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Progress, Typography, Tooltip } from "antd";
 import { InfoCircleOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 
@@ -34,14 +34,7 @@ const levelDetails = {
   },
   Intermediate: {
     label: "Intermediate",
-    dsTopics: [
-      "Array",
-      "String",
-      "Linked List",
-      "Stack",
-      "Queue",
-      "Hash Table",
-    ],
+    dsTopics: ["Array", "String", "Linked List", "Stack", "Queue", "Hash Table"],
     patternTopics: [
       "Matrix",
       "Sorting",
@@ -54,7 +47,7 @@ const levelDetails = {
       "Dynamic Programming",
     ],
     explanation:
-      "All beginner topics, plus recurssion patterns and bit manipulation.",
+      "All beginner topics, plus recursion patterns and bit manipulation.",
     totalTopics: 15,
   },
   Advanced: {
@@ -92,6 +85,8 @@ const levelDetails = {
   },
 } as const;
 
+type LevelKey = keyof typeof levelDetails;
+
 function getTopicScore(solved: number) {
   if (solved >= 20) return 10;
   if (solved >= 15) return 8;
@@ -110,12 +105,7 @@ function getColor(score: number) {
 }
 
 const Score: React.FC<ScoreProps> = ({ skills }) => {
-  const [level, setLevel] = useState<"Beginner" | "Intermediate" | "Advanced">(
-    "Beginner"
-  );
-
-  const { dsTopics, patternTopics, explanation, totalTopics } =
-    levelDetails[level];
+  const [level, setLevel] = useState<LevelKey>("Beginner");
 
   const allSkills = useMemo(
     () => [...skills.fundamental, ...skills.intermediate, ...skills.advanced],
@@ -124,40 +114,77 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
 
   const normalize = (s: string) => s.trim().toLowerCase();
 
+  const computePercentForLevel = (lvl: LevelKey) => {
+    const { dsTopics, patternTopics, totalTopics } = levelDetails[lvl];
+    let total = 0;
+    [...dsTopics, ...patternTopics].forEach((topic) => {
+      const skill = allSkills.find((s) => normalize(s.tagName) === normalize(topic));
+      const solved = skill ? skill.problemsSolved : 0;
+      total += getTopicScore(solved);
+    });
+    return Math.ceil((total / (totalTopics * 10)) * 100);
+  };
+
+  useEffect(() => {
+    const advPercent = computePercentForLevel("Advanced");
+    const intPercent = computePercentForLevel("Intermediate");
+
+    if (advPercent >= 80) {
+      setLevel("Advanced");
+    } else if (intPercent >= 80) {
+      setLevel("Intermediate");
+    } else {
+      setLevel("Beginner");
+    }
+  }, [/* run when skills change */ allSkills]);
+
+  const { dsTopics, patternTopics, explanation, totalTopics } = levelDetails[level];
+
   const { totalMark, topicSolved } = useMemo(() => {
     const solvedMap: Record<string, number> = {};
     let total = 0;
-
     [...dsTopics, ...patternTopics].forEach((topic) => {
-      const skill =
-        allSkills.find((s) => normalize(s.tagName) === normalize(topic)) ||
-        null;
+      const skill = allSkills.find((s) => normalize(s.tagName) === normalize(topic)) || null;
       const solved = skill ? skill.problemsSolved : 0;
       const score = getTopicScore(solved);
       solvedMap[topic] = solved;
       total += score;
     });
-
     return { totalMark: total, topicSolved: solvedMap };
   }, [dsTopics, patternTopics, allSkills]);
 
   const percent = Math.ceil((totalMark / (totalTopics * 10)) * 100);
 
-  const scoreColor =
-    percent >= 80 ? "#57e077" : percent >= 60 ? "#faad14" : "#f5222d";
+  const scoreColor = percent >= 80 ? "#57e077" : percent >= 60 ? "#faad14" : "#f5222d";
   const badgeText =
-    percent == 100 ? "You are Ready" : percent >= 80 ? "High Potential" : percent >= 60 ? "On Track" :percent >= 50 ? "Halfway there":percent == 0 ? "Best day to start is Today" : "Needs Work";
+    percent === 100
+      ? "You are Ready"
+      : percent >= 80
+      ? "High Potential"
+      : percent >= 60
+      ? "On Track"
+      : percent >= 50
+      ? "Halfway there"
+      : percent === 0
+      ? "Best day to start is Today"
+      : "Needs Work";
 
   return (
-    <div className="bg-white rounded-2xl pt-6 min-h-[320px] text-center shadow-[0_2px_16px_rgba(90,36,249,0.06)] clash-grotesk mt-4">
-      <div className="mb-5 px-1 raleway-st-bold">
+    <div className="bg-white rounded-2xl pt-6 min-h-[320px] text-center shadow-[0_2px_16px_rgba(90,36,249,0.06)] clash-grotesk mt-4 px-4 sm:px-6">
+      <div className="mb-5  raleway-st-bold">
         <Title
-          level={4}
+          level={3}
           className="font-bold tracking-[0.5px] m-0 text-center"
         >
-          Interview Readiness
+          <span className="inline-flex items-center gap-1">
+            Interview Readiness
+            <Tooltip className='font-normal text-xs' title="This score and progress is taken from the tags of LeetCode problems you have solved and it is not accurate.">
+              <InfoCircleOutlined className="text-blue-900 cursor-pointer" />
+            </Tooltip>
+          </span>
         </Title>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(90px,max-content))] gap-1 mt-3 justify-center">
+
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,max-content))] gap-3 mt-3 justify-center">
           {(["Beginner", "Intermediate", "Advanced"] as const).map((lvl) => (
             <button
               key={lvl}
@@ -171,9 +198,7 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
             >
               {levelDetails[lvl].label}
               <Tooltip title={levelDetails[lvl].explanation}>
-                <InfoCircleOutlined
-                  style={{ fontSize: 15, color: "#4096ff", marginLeft: 3 }}
-                />
+                <InfoCircleOutlined style={{ fontSize: 15, color: "#4096ff", marginLeft: 3 }} />
               </Tooltip>
             </button>
           ))}
@@ -197,27 +222,24 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
               className="text-[38px] font-bold"
               style={{
                 color: scoreColor,
-                textShadow:
-                  scoreColor === "#57e077" ? "0 2px 8px #d2f5db" : undefined,
+                textShadow: scoreColor === "#57e077" ? "0 2px 8px #d2f5db" : undefined,
               }}
             >
               {percent}
             </span>
-            <div
-              className="text-[15px] font-medium mt-0.5 px-5"
-              style={{ color: scoreColor }}
-            >
+            <div className="text-[15px] font-medium mt-0.5 px-5" style={{ color: scoreColor }}>
               {badgeText}
             </div>
           </div>
         )}
       />
 
-      <div className="flex gap-6 flex-wrap justify-center mt-6 px-4">
-        <div className="flex-1 min-w-[220px] max-w-[500px]">
-          <Text strong className="text-[20px] mb-3 block">
+      <div className="flex gap-6 flex-wrap justify-center mt-6">
+        <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
+          <Text strong className="text-[16px] !text-xl mb-3 block">
             {level} Level Data Structures
           </Text>
+
           {dsTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;
             const topicScore = getTopicScore(solved);
@@ -226,27 +248,22 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
               <div key={topic} className="text-left mb-3 w-full">
                 <div className="flex justify-between mb-1 font-medium">
                   <span>{topic}</span>
-                  {topicScore === 10 && (
-                    <CheckCircleTwoTone twoToneColor="#52c41a" />
-                  )}
+                  {topicScore === 10 && <CheckCircleTwoTone twoToneColor="#52c41a" />}
                 </div>
-                <Progress
-                  percent={Math.min((solved / 20) * 100, 100)}
-                  strokeColor={color}
-                  showInfo={false}
-                />
-                <div className="text-xs text-gray-600 mt-0.5">
-                  {solved} problems solved
-                </div>
+
+                <Progress percent={Math.min((solved / 20) * 100, 100)} strokeColor={color} showInfo={false} />
+
+                <div className="text-xs text-gray-600 mt-0.5">{solved} problems solved</div>
               </div>
             );
           })}
         </div>
 
-        <div className="flex-1 min-w-[220px] max-w-[500px]">
-          <Text strong className="text-[16px] mb-3 block">
-          {level} Level Patterns
+        <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
+          <Text strong className="text-[16px] !text-xl mb-3 block">
+            {level} Level Patterns
           </Text>
+
           {patternTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;
             const topicScore = getTopicScore(solved);
@@ -255,18 +272,12 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
               <div key={topic} className="text-left mb-3 w-full">
                 <div className="flex justify-between mb-1 font-medium">
                   <span>{topic}</span>
-                  {topicScore === 10 && (
-                    <CheckCircleTwoTone twoToneColor="#52c41a" />
-                  )}
+                  {topicScore === 10 && <CheckCircleTwoTone twoToneColor="#52c41a" />}
                 </div>
-                <Progress
-                  percent={Math.min((solved / 20) * 100, 100)}
-                  strokeColor={color}
-                  showInfo={false}
-                />
-                <div className="text-xs text-gray-600 mt-0.5">
-                  {solved} problems solved
-                </div>
+
+                <Progress percent={Math.min((solved / 20) * 100, 100)} strokeColor={color} showInfo={false} />
+
+                <div className="text-xs text-gray-600 mt-0.5">{solved} problems solved</div>
               </div>
             );
           })}
