@@ -151,7 +151,6 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData }) =
         setAiSummary(response.data);
       } catch (err) {
         setError('Failed to load AI summary');
-        console.error('Error fetching AI summary:', err);
       } finally {
         setLoading(false);
       }

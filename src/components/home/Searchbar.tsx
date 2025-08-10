@@ -20,18 +20,24 @@ const Searchbar = () => {
 
   const handleSearch = async () => {
     const enocoded_username = encodeURIComponent(username);
+    
     if (!username.trim()) {
       setError("Please enter a username.");
       setUsername('');
       setInputKey(prev => prev + 1);
       triggerShake();
+      await axios.post(`${backendUrl}/api/log`, {   // log the empty search attempt
+        user_id: username.trim() || "empty",
+      });
       return;
     }
 
     try {
       setSubmitting(true);
+      await axios.post(`${backendUrl}/api/log`, {
+        user_id: username.trim() || "empty",
+      });
       const res = await axios.get(`${backendUrl}/${enocoded_username.trim()}`, { timeout: 5000 });
-      console.log(res.data);
       setError('');
       navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
     } catch (err: any) {

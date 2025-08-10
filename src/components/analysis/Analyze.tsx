@@ -5,15 +5,14 @@ import Greeting from './greet';
 import Badges from './badges';
 import SolvesOverTimeLineChart from './SolvesOverTime';
 import Summary from './Summary';
-import SubmissionStats from './SubmissionStats';
 import MostSolved from './MostSolved';
 import Topic from './Topic';
 import TopicDataBars from './TopicDataBars';
 import type { LeetCodeData } from '../../LeetCodeData';
 import Radar from './Radar';
 import ContestStats from './ContestStats';
-import AiSummaryPanel from '.././AiSummary';
-import Score from '.././Score';
+import AiSummaryPanel from './AiSummary';
+import Score from './Score';
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const Analyze = () => {
     hard: data.hardSolved || 0,
     total: data.totalSolved || 0,
   };
-
+  console.log("again why are you here mr."+data.username);
   return(
     <div className='mt-5 mx-5'>
       <Greeting username={data.profile.realName} image={data.profile.avatar} /> 
