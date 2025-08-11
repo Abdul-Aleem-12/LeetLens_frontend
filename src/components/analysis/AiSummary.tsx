@@ -9,7 +9,7 @@ import {
   Row,
   Col,
   Spin,
-  Tag
+  Tag,
 } from 'antd';
 import {
   ThunderboltTwoTone,
@@ -184,18 +184,27 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
   }
 
   const suggestions = parseSuggestions(summaryData.suggestions);
-
   return (
     <div className="w-full rounded-2xl clash-grotesk my-4"
     onMouseEnter={handleUserReachedBottom}
     onTouchStart={handleUserReachedBottom}>
       <Card
-        className="w-full rounded-2xl shadow-md"
+        className="w-full rounded-2xl shadow-md "
         styles={{ body: { background: 'rgba(255,255,255,0.97)' } }}
         title={
           <Space>
             <BulbTwoTone twoToneColor="#1252ba" style={{ fontSize: '1.75rem' }} />
-            <span style={{ fontSize: '1.55rem', fontWeight: 800, color: '#1e1e1e' }}>
+            <span
+              style={{
+                fontSize:'1.2rem',
+                fontWeight: 800,
+                color: '#1e1e1e',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
+                whiteSpace: 'normal',
+              }}
+              className='md:!text-2xl'
+            >
               {aiSummary ? 'AI-Powered Profile Analysis' : 'Profile Analysis'}
             </span>
           </Space>
