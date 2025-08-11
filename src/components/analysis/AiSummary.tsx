@@ -1,5 +1,3 @@
-// AiSummaryPanel.tsx
-
 import React, { useEffect, useState } from 'react';
 import {
   Card,
@@ -51,7 +49,8 @@ interface AISummaryPanelProps {
 
 const parseSuggestions = (suggestions: string[]): ProblemSuggestion[] => {
   return suggestions.map(suggestion => {
-    const match = suggestion.match(/\[(\d+)\]\[(\w+)\] (.+?) \(leetcode\.com\/problems\/(.+?)\)/i) ||
+    const match =
+      suggestion.match(/\[(\d+)\]\[(\w+)\] (.+?) \(leetcode\.com\/problems\/(.+?)\)/i) ||
       suggestion.match(/\[(\d+)\] (.+?) \(leetcode\.com\/problems\/(.+?)\)/i);
 
     if (match) {
@@ -138,7 +137,7 @@ const getDefaultWeaknesses = (easy: number, medium: number, hard: number): strin
   return weaknesses.slice(0, 5);
 };
 
-const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id }) => {
+const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id }) => {
   const [aiSummary, setAiSummary] = useState<AISummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -146,7 +145,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleUserReachedBottom = async () => {
-    if (hasTriggered) return; // only once
+    if (hasTriggered) return;
     setHasTriggered(true);
     try {
       await axios.post(`${backendUrl}/api/log/scroll`, {
@@ -156,7 +155,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
       console.log("User reached bottom event sent");
     } catch (err) {
       console.error("Failed to send scroll event", err);
-      setHasTriggered(false); // allow retry on failure
+      setHasTriggered(false);
     }
   };
 
@@ -206,9 +205,11 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
   const suggestions = parseSuggestions(summaryData.suggestions);
 
   return (
-     <div className="w-full rounded-2xl overflow-hidden min-h-screen mt-5 clash-grotesk mb-3" 
-     onMouseEnter={handleUserReachedBottom}
-     onTouchStart={handleUserReachedBottom}>
+    <div
+      className="w-full rounded-2xl overflow-hidden min-h-screen mt-5 clash-grotesk mb-3"
+      onMouseEnter={handleUserReachedBottom}
+      onTouchStart={handleUserReachedBottom}
+    >
       <Card
         className="w-full rounded-2xl shadow-md border-none"
         styles={{
@@ -221,7 +222,6 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
             fontWeight: 'bold',
           },
           body: {
-            //padding: '20px',
             background: 'rgba(255,255,255,0.97)',
             borderBottomLeftRadius: '20px',
             borderBottomRightRadius: '20px'
@@ -267,9 +267,11 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
                   <Card
                     key={i}
                     size="small"
-                    bordered={false}
+                    variant="borderless"
                     className="w-full rounded-md border-l-4 border-red-600 bg-gradient-to-r from-red-50 to-red-100"
-                    bodyStyle={{ padding: 10 }}
+                    styles={{
+                      body: { padding: 10 }
+                    }}
                   >
                     <Space>
                       <StarTwoTone twoToneColor="#b71c1c" />
@@ -296,7 +298,9 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
                       <Card
                         hoverable
                         className="w-full rounded-lg bg-gradient-to-r from-blue-50 to-blue-100"
-                        bodyStyle={{ padding: 14 }}
+                        styles={{
+                          body: { padding: 14 }
+                        }}
                       >
                         <div className="mb-1">
                           <Tag color="blue" className="text-xs px-2 py-1 font-semibold rounded-md">
@@ -308,7 +312,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData , id
                           <Tag
                             color={
                               item.difficulty === "Easy" ? "green" :
-                                item.difficulty === "Medium" ? "orange" : "red"
+                              item.difficulty === "Medium" ? "orange" : "red"
                             }
                             className="text-xs font-bold rounded-md"
                           >
