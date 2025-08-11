@@ -56,10 +56,10 @@ const parseSuggestions = (suggestions: string[]): ProblemSuggestion[] => {
     if (match) {
       let difficulty: 'Easy' | 'Medium' | 'Hard' = 'Medium';
       if (match[2]) {
-        const lowerCaseDiff = match[2].toLowerCase();
-        if (lowerCaseDiff === 'easy') difficulty = 'Easy';
-        if (lowerCaseDiff === 'medium') difficulty = 'Medium';
-        if (lowerCaseDiff === 'hard') difficulty = 'Hard';
+        const diff = match[2].toLowerCase();
+        if (diff === 'easy') difficulty = 'Easy';
+        if (diff === 'medium') difficulty = 'Medium';
+        if (diff === 'hard') difficulty = 'Hard';
       }
       return {
         number: parseInt(match[1]),
@@ -116,7 +116,7 @@ const getDefaultSummary = (totalSolved: number): string => {
 };
 
 const getDefaultWeaknesses = (easy: number, medium: number, hard: number): string[] => {
-  const weaknesses = [];
+  const weaknesses: string[] = [];
   const mediumRatio = medium / (easy + medium + hard);
   const hardRatio = hard / (easy + medium + hard);
 
@@ -133,31 +133,13 @@ const getDefaultWeaknesses = (easy: number, medium: number, hard: number): strin
       "Improve understanding of recursion and backtracking"
     );
   }
-
   return weaknesses.slice(0, 5);
 };
 
 const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id }) => {
   const [aiSummary, setAiSummary] = useState<AISummary | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [hasTriggered, setHasTriggered] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-  const handleUserReachedBottom = async () => {
-    if (hasTriggered) return;
-    setHasTriggered(true);
-    try {
-      await axios.post(`${backendUrl}/api/log/scroll`, {
-        id: id,
-        fully_scrolled: true,
-      });
-      console.log("User reached bottom event sent");
-    } catch (err) {
-      console.error("Failed to send scroll event", err);
-      setHasTriggered(false);
-    }
-  };
 
   useEffect(() => {
     const fetchAiSummary = async () => {
@@ -165,21 +147,14 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
         setLoading(true);
         const response = await axios.get(`${backendUrl}/summary/${username}`);
         setAiSummary(response.data);
-      } catch (err) {
-        setError('Failed to load AI summary');
-      } finally {
-        setLoading(false);
-      }
+      } catch {}
+      finally { setLoading(false); }
     };
     fetchAiSummary();
   }, [username]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center py-10">
-        <Spin size="large" />
-      </div>
-    );
+    return <div className="flex justify-center py-10"><Spin size="large" /></div>;
   }
 
   const summaryData = aiSummary || (userData ? {
@@ -190,47 +165,20 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
   } : null);
 
   if (!summaryData) {
-    return (
-      <div className="m-1 sm:m-5">
-        <Alert
-          message="No user data available at the moment try reloading the page."
-          description="Cannot generate summary without user statistics."
-          type="warning"
-          showIcon
-        />
-      </div>
-    );
+    return <Alert message="No user data available" type="warning" showIcon />;
   }
 
   const suggestions = parseSuggestions(summaryData.suggestions);
 
   return (
-    <div
-      className="w-full rounded-2xl overflow-hidden min-h-screen mt-5 clash-grotesk mb-3"
-      onMouseEnter={handleUserReachedBottom}
-      onTouchStart={handleUserReachedBottom}
-    >
+    <div className="w-full rounded-2xl clash-grotesk my-4">
       <Card
-        className="w-full rounded-2xl shadow-md border-none"
-        styles={{
-          header: {
-            background: 'linear-gradient(90deg, #e8eefa 60%, #dde7f5 100%)',
-            minHeight: '48px',
-            paddingRight: '10px',
-            overflowWrap: 'break-word',
-            borderBottom: 'none',
-            fontWeight: 'bold',
-          },
-          body: {
-            background: 'rgba(255,255,255,0.97)',
-            borderBottomLeftRadius: '20px',
-            borderBottomRightRadius: '20px'
-          }
-        }}
+        className="w-full rounded-2xl shadow-md"
+        styles={{ body: { background: 'rgba(255,255,255,0.97)' } }}
         title={
-          <Space className="flex flex-wrap items-center">
-            <BulbTwoTone twoToneColor="#1252ba" className="text-xl" />
-            <span className="text-lg sm:text-xl font-extrabold text-indigo-900">
+          <Space>
+            <BulbTwoTone twoToneColor="#1252ba" style={{ fontSize: '1.75rem' }} />
+            <span style={{ fontSize: '1.55rem', fontWeight: 800, color: '#1e1e1e' }}>
               {aiSummary ? 'AI-Powered Profile Analysis' : 'Profile Analysis'}
             </span>
           </Space>
@@ -238,109 +186,98 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
       >
         <Row gutter={[16, 20]}>
           <Col xs={24} lg={15}>
-            <div className="bg-blue-50/90 rounded-lg p-3 sm:p-6 mb-5">
-              <Divider orientation="left" plain className="text-base font-bold text-blue-900">
+            <div className="bg-blue-50/90 rounded-lg p-4 mb-5">
+              <Divider orientation="left" plain>
                 <Space>
-                  <ThunderboltTwoTone twoToneColor="#25439d" />
-                  <Text className='font-bold text-3xl'>Performance Summary</Text>
+                  <ThunderboltTwoTone twoToneColor="#25439d" style={{ fontSize: '1.4rem' }} />
+                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1b2a6b' }}>Performance Summary</span>
                 </Space>
               </Divider>
-              <Paragraph className="text-sm sm:text-base text-gray-800">
+              <Paragraph style={{ fontSize: '1.11rem', lineHeight: 1.6, color: '#222' }}>
                 {summaryData.summary}
                 {!aiSummary && (
-                  <Text type="secondary" className="block mt-2 text-blue-700">
+                  <Text
+                    type="secondary"
+                    className="block mt-2"
+                    style={{ color: '#25439d', fontSize: '1rem' }}
+                  >
                     (Default analysis based on problem statistics)
                   </Text>
                 )}
               </Paragraph>
             </div>
-
-            <div className="bg-red-50/90 rounded-lg p-3 sm:p-5">
-              <Divider orientation="left" plain className="text-base font-bold text-red-700">
+            <div className="bg-red-50/90 rounded-lg p-4">
+              <Divider orientation="left" plain>
                 <Space>
-                  <WarningTwoTone twoToneColor="#b71c1c" />
-                  <Text className='font-bold text-3xl'>Key Areas for Improvement</Text>
+                  <WarningTwoTone twoToneColor="#b71c1c" style={{ fontSize: '1.4rem' }} />
+                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#b71c1c' }}>Key Areas for Improvement</span>
                 </Space>
               </Divider>
-              <Space direction="vertical" className="w-full" size={12}>
+              <Space direction="vertical" className="w-full" size={10}>
                 {summaryData.weaknesses.map((weakness, i) => (
                   <Card
                     key={i}
                     size="small"
                     variant="borderless"
                     className="w-full rounded-md border-l-4 border-red-600 bg-gradient-to-r from-red-50 to-red-100"
-                    styles={{
-                      body: { padding: 10 }
-                    }}
+                    styles={{ body: { padding: 10 } }}
                   >
                     <Space>
-                      <StarTwoTone twoToneColor="#b71c1c" />
-                      <Text className="text-red-700">{weakness}</Text>
+                      <StarTwoTone twoToneColor="#b71c1c" style={{ fontSize: '1.08rem' }} />
+                      <span style={{ fontSize: '1.1rem', color: '#b71c1c' }}>{weakness}</span>
                     </Space>
                   </Card>
                 ))}
               </Space>
             </div>
           </Col>
-
           <Col xs={24} lg={9}>
-            <div className="bg-blue-50/95 rounded-lg p-3 sm:p-5 h-full">
-              <Divider orientation="left" plain className="text-base font-bold text-blue-800">
+            <div className="bg-blue-50/95 rounded-lg p-4 h-full">
+              <Divider orientation="left" plain>
                 <Space>
-                  <FireTwoTone twoToneColor="#254264" />
-                  <Text className='font-bold text-3xl'>Recommended Problems</Text>
+                  <FireTwoTone twoToneColor="#254264" style={{ fontSize: '1.4rem' }} />
+                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#183153' }}>Recommended Problems</span>
                 </Space>
               </Divider>
-              {suggestions.length > 0 ? (
-                <Space direction="vertical" className="w-full" size={10}>
-                  {suggestions.map((item, index) => (
-                    <a key={index} href={item.url} target="_blank" rel="noopener noreferrer">
-                      <Card
-                        hoverable
-                        className="w-full rounded-lg bg-gradient-to-r from-blue-50 to-blue-100"
-                        styles={{
-                          body: { padding: 14 }
-                        }}
-                      >
-                        <div className="mb-1">
-                          <Tag color="blue" className="text-xs px-2 py-1 font-semibold rounded-md">
-                            #{item.number}
-                          </Tag>
-                          <Text strong className="block text-gray-800 text-sm">{item.name}</Text>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <Tag
-                            color={
-                              item.difficulty === "Easy" ? "green" :
-                              item.difficulty === "Medium" ? "orange" : "red"
-                            }
-                            className="text-xs font-bold rounded-md"
-                          >
-                            {item.difficulty}
-                          </Tag>
-                          <Text type="secondary" className="text-xs font-medium">View Problem →</Text>
-                        </div>
-                      </Card>
-                    </a>
-                  ))}
-                </Space>
-              ) : (
-                <Alert
-                  message="No recommendations available"
-                  type="info"
-                  showIcon
-                  className="rounded-lg bg-blue-50"
-                />
-              )}
+              <Space direction="vertical" size={10} className="w-full">
+                {suggestions.map((item, index) => (
+                  <a key={index} href={item.url} target="_blank" rel="noopener noreferrer">
+                    <Card
+                      hoverable
+                      className="w-full rounded-lg bg-gradient-to-r from-blue-50 to-blue-100"
+                      styles={{ body: { padding: 12 } }}
+                    >
+                      <div className="mb-1">
+                        <Tag color="blue" style={{ fontSize: '1rem' }}>#{item.number}</Tag>
+                        <span style={{ fontSize: '1.13rem', fontWeight: 600 }}>{item.name}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <Tag
+                          color={
+                            item.difficulty === "Easy" ? "green" :
+                            item.difficulty === "Medium" ? "orange" : "red"
+                          }
+                          style={{ fontSize: '0.95rem', fontWeight: 600 }}
+                        >
+                          {item.difficulty}
+                        </Tag>
+                        <span style={{ fontSize: '0.95rem', color: '#25439d' }}>View Problem →</span>
+                      </div>
+                    </Card>
+                  </a>
+                ))}
+              </Space>
             </div>
           </Col>
         </Row>
-
         <Divider className="my-4" />
-
-        <Text type="secondary" className="text-xs block text-center">
-          <Tooltip title={aiSummary ? "Analysis is based on your recent coding patterns and AI inference." : "Default analysis based on your problem statistics."}>
-            Generated on {new Date().toLocaleString()} | <span className="text-blue-900 font-bold">{aiSummary ? 'AI-generated summary ✔' : 'Default analysis'}</span>
+        <Text type="secondary" style={{ fontSize: '0.92rem', textAlign: 'center', display: 'block' }}>
+          Generated on {new Date().toLocaleString()} |{' '}
+          <span style={{ fontWeight: 600, color: '#25439d' }}>
+            {aiSummary ? 'AI-generated summary ✔' : 'Default analysis'}
+          </span>{' '}
+          <Tooltip title="This analysis is generated based on your LeetCode statistics and AI predictions.">
+            ℹ️
           </Tooltip>
         </Text>
       </Card>

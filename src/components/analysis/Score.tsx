@@ -136,7 +136,7 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
     } else {
       setLevel("Beginner");
     }
-  }, [/* run when skills change */ allSkills]);
+  }, [allSkills]);
 
   const { dsTopics, patternTopics, explanation, totalTopics } = levelDetails[level];
 
@@ -171,14 +171,14 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
 
   return (
     <div className="bg-white rounded-2xl pt-6 min-h-[320px] text-center shadow-[0_2px_16px_rgba(90,36,249,0.06)] clash-grotesk mt-4 px-4 sm:px-6">
-      <div className="mb-5  raleway-st-bold">
-        <Title
-          level={3}
-          className="font-bold tracking-[0.5px] m-0 text-center"
-        >
+      <div className="mb-5 raleway-st-bold">
+        <Title level={3} className="font-bold tracking-[0.5px] m-0 text-center">
           <span className="inline-flex items-center gap-1">
             Interview Readiness
-            <Tooltip className='font-normal text-xs' title="This score and progress is taken from the tags of LeetCode problems you have solved and it is not accurate.">
+            <Tooltip
+              className="font-normal text-xs"
+              title="This score and progress is taken from the tags of LeetCode problems you have solved and it is not accurate."
+            >
               <InfoCircleOutlined className="text-blue-900 cursor-pointer" />
             </Tooltip>
           </span>
@@ -198,7 +198,9 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
             >
               {levelDetails[lvl].label}
               <Tooltip title={levelDetails[lvl].explanation}>
-                <InfoCircleOutlined style={{ fontSize: 15, color: "#4096ff", marginLeft: 3 }} />
+                <InfoCircleOutlined
+                  style={{ fontSize: 15, color: "#4096ff", marginLeft: 3 }}
+                />
               </Tooltip>
             </button>
           ))}
@@ -222,12 +224,16 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
               className="text-[38px] font-bold"
               style={{
                 color: scoreColor,
-                textShadow: scoreColor === "#57e077" ? "0 2px 8px #d2f5db" : undefined,
+                textShadow:
+                  scoreColor === "#57e077" ? "0 2px 8px #d2f5db" : undefined,
               }}
             >
               {percent}
             </span>
-            <div className="text-[15px] font-medium mt-0.5 px-5" style={{ color: scoreColor }}>
+            <div
+              className="text-[15px] font-medium mt-0.5 px-5"
+              style={{ color: scoreColor }}
+            >
               {badgeText}
             </div>
           </div>
@@ -235,49 +241,79 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
       />
 
       <div className="flex gap-6 flex-wrap justify-center mt-6">
+        {/* Data Structures */}
         <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
           <Text strong className="text-[16px] !text-xl mb-3 block">
             {level} Level Data Structures
           </Text>
-
           {dsTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;
             const topicScore = getTopicScore(solved);
             const color = getColor(topicScore);
             return (
               <div key={topic} className="text-left mb-3 w-full">
-                <div className="flex justify-between mb-1 font-medium">
+                <div
+                  className="flex justify-between mb-1 font-medium"
+                  style={{ fontSize: "1.05rem" }} 
+                >
                   <span>{topic}</span>
-                  {topicScore === 10 && <CheckCircleTwoTone twoToneColor="#52c41a" />}
+                  {topicScore === 10 && (
+                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                  )}
                 </div>
-
-                <Progress percent={Math.min((solved / 20) * 100, 100)} strokeColor={color} showInfo={false} />
-
-                <div className="text-xs text-gray-600 mt-0.5">{solved} problems solved</div>
+                <Progress
+                  percent={Math.min((solved / 20) * 100, 100)}
+                  strokeColor={color}
+                  showInfo={false}
+                />
+                <div
+                  className="mt-0.5"
+                  style={{
+                    fontSize: "0.88rem",
+                    color: "#595959",
+                  }}
+                >
+                  {solved} problems solved
+                </div>
               </div>
             );
           })}
         </div>
 
+        {/* Patterns */}
         <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
           <Text strong className="text-[16px] !text-xl mb-3 block">
             {level} Level Patterns
           </Text>
-
           {patternTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;
             const topicScore = getTopicScore(solved);
             const color = getColor(topicScore);
             return (
               <div key={topic} className="text-left mb-3 w-full">
-                <div className="flex justify-between mb-1 font-medium">
+                <div
+                  className="flex justify-between mb-1 font-medium"
+                  style={{ fontSize: "1.05rem" }}
+                >
                   <span>{topic}</span>
-                  {topicScore === 10 && <CheckCircleTwoTone twoToneColor="#52c41a" />}
+                  {topicScore === 10 && (
+                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                  )}
                 </div>
-
-                <Progress percent={Math.min((solved / 20) * 100, 100)} strokeColor={color} showInfo={false} />
-
-                <div className="text-xs text-gray-600 mt-0.5">{solved} problems solved</div>
+                <Progress
+                  percent={Math.min((solved / 20) * 100, 100)}
+                  strokeColor={color}
+                  showInfo={false}
+                />
+                <div
+                  className="mt-0.5"
+                  style={{
+                    fontSize: "0.88rem",
+                    color: "#595959",
+                  }}
+                >
+                  {solved} problems solved
+                </div>
               </div>
             );
           })}

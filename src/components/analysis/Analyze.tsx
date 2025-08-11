@@ -38,7 +38,6 @@ const Analyze = () => {
   };
   console.log("again why are you here mr."+data.username);
   useEffect(() => {
-    console.log("Updating DB log for user:", data.username, "with ID:", id);
     const updateDB = async (): Promise<void> => {
       if (!id || !data) return;
       try {
@@ -48,7 +47,6 @@ const Analyze = () => {
           Total_Solved: data.totalSolved,
         });
       } catch (error) {
-        console.error('Failed to update DB log:', error);
       }
     };
 

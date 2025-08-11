@@ -22,7 +22,5 @@ export const badgeFallbacks: Record<string, string> = {
     "2023 Annual Badge": "/2023 Annual Badge.png",
     "Guardian" : "/Guardian.png",
     "Knight" : "/Knight.png",
-
-    // Add more as needed
 };
   

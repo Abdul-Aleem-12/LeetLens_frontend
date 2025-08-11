@@ -102,12 +102,11 @@ const StarRatingFeedback: React.FC<StarRatingFeedbackProps> = ({userId}) => {
             );
           })}
         </div>
-        {/* Reserve space for comment text to prevent shaking */}
         <p
           className="text-center sm:text-left text-purple-700 font-medium select-none text-sm sm:text-base min-h-[1.5rem]"
           aria-live="polite"
         >
-          {display > 0 ? ratingComments[display as keyof typeof ratingComments] : '\u00A0' /* Non-breaking space */}
+          {display > 0 ? ratingComments[display as keyof typeof ratingComments] : '\u00A0' }
         </p>
       </div>
     );

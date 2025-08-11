@@ -47,7 +47,6 @@ import React from 'react';
   
     return (
       <div className="relative rounded-2xl border border-gray-200 bg-white/90 p-6 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-        {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/30 rounded-full -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-100/20 rounded-full -ml-20 -mb-20"></div>
         
