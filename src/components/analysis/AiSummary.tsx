@@ -139,7 +139,23 @@ const getDefaultWeaknesses = (easy: number, medium: number, hard: number): strin
 const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id }) => {
   const [aiSummary, setAiSummary] = useState<AISummary | null>(null);
   const [loading, setLoading] = useState(true);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const handleUserReachedBottom = async () => {
+    if (hasTriggered) return; 
+    setHasTriggered(true);
+    try {
+      await axios.post(`${backendUrl}/api/log/scroll`, {
+        id: id,
+        fully_scrolled: true,
+      });
+      console.log("User reached bottom event sent");
+    } catch (err) {
+      console.error("Failed to send scroll event", err);
+      setHasTriggered(false); 
+    }
+  };
 
   useEffect(() => {
     const fetchAiSummary = async () => {
@@ -171,7 +187,9 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
   const suggestions = parseSuggestions(summaryData.suggestions);
 
   return (
-    <div className="w-full rounded-2xl clash-grotesk my-4">
+    <div className="w-full rounded-2xl clash-grotesk my-4"
+    onMouseEnter={handleUserReachedBottom}
+    onTouchStart={handleUserReachedBottom}>
       <Card
         className="w-full rounded-2xl shadow-md"
         styles={{ body: { background: 'rgba(255,255,255,0.97)' } }}
