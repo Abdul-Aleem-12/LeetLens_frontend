@@ -208,7 +208,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
               <Divider orientation="left" plain>
                 <Space>
                   <ThunderboltTwoTone twoToneColor="#25439d" style={{ fontSize: '1.4rem' }} />
-                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1b2a6b' }}>Performance Summary</span>
+                  <span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1b2a6b' }}>Performance Summary</span>
                 </Space>
               </Divider>
               <Paragraph style={{ fontSize: '1.11rem', lineHeight: 1.6, color: '#222' }}>
@@ -228,7 +228,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
               <Divider orientation="left" plain>
                 <Space>
                   <WarningTwoTone twoToneColor="#b71c1c" style={{ fontSize: '1.4rem' }} />
-                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#b71c1c' }}>Key Areas for Improvement</span>
+                  <span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#b71c1c' }}>Key Areas for Improvement</span>
                 </Space>
               </Divider>
               <Space direction="vertical" className="w-full" size={10}>
@@ -254,7 +254,7 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
               <Divider orientation="left" plain>
                 <Space>
                   <FireTwoTone twoToneColor="#254264" style={{ fontSize: '1.4rem' }} />
-                  <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#183153' }}>Recommended Problems</span>
+                  <span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#183153' }}>Recommended Problems</span>
                 </Space>
               </Divider>
               <Space direction="vertical" size={10} className="w-full">
