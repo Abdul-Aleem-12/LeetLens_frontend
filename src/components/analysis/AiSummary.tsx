@@ -150,7 +150,6 @@ const AiSummaryPanel: React.FC<AISummaryPanelProps> = ({ username, userData, id 
         id: id,
         fully_scrolled: true,
       });
-      console.log("User reached bottom event sent");
     } catch (err) {
       console.error("Failed to send scroll event", err);
       setHasTriggered(false); 

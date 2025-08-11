@@ -244,7 +244,7 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
         {/* Data Structures */}
         <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
           <Text strong className="text-[16px] !text-xl mb-3 block">
-            {level} Level Data Structures
+            Data Structures for {level} Level
           </Text>
           {dsTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;
@@ -269,7 +269,7 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
                 <div
                   className="mt-0.5"
                   style={{
-                    fontSize: "0.88rem",
+                    fontSize: "0.88rem", 
                     color: "#595959",
                   }}
                 >
@@ -283,7 +283,7 @@ const Score: React.FC<ScoreProps> = ({ skills }) => {
         {/* Patterns */}
         <div className="flex-1 min-w-[220px] max-w-[500px] px-2">
           <Text strong className="text-[16px] !text-xl mb-3 block">
-            {level} Level Patterns
+          Patterns for {level} Level 
           </Text>
           {patternTopics.map((topic) => {
             const solved = topicSolved[topic] || 0;

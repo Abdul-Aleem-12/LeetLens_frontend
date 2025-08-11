@@ -64,13 +64,17 @@ const Analyze = () => {
         < Diffculty_PieChart difficultyData={difficultyStats} />
         < Badges badges={data.badges} submissionCalendar={data.submissionCalendar} />
       </div>
-      <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
-      <div className='flex flex-col sm:flex-row gap-3 mt-5'>
-        < Topic skills={data.skills} />
-        < MostSolved skills={data.skills} />
-      </div>
-      <TopicDataBars skills={data.skills} />
-      < Radar skills={data.skills} />
+      {data.totalSolved > 0 ? (
+        <>
+          <SolvesOverTimeLineChart submissionCalendar={data.submissionCalendar} />
+          <div className="flex flex-col sm:flex-row gap-3 mt-5">
+            <Topic skills={data.skills} />
+            <MostSolved skills={data.skills} />
+          </div>
+          <TopicDataBars skills={data.skills} />
+          <Radar skills={data.skills} />
+        </>
+      ) : null}
       <Score skills={data.skills} /> 
       <AiSummaryPanel 
         username={data.username} 
