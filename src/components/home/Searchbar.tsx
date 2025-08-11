@@ -26,7 +26,7 @@ const Searchbar = () => {
       setUsername('');
       setInputKey(prev => prev + 1);
       triggerShake();
-      await axios.post(`${backendUrl}/api/log`, {   // log the empty search attempt
+      await axios.post(`${backendUrl}/api/log`, {    // log the empty search attempt
         user_id: username.trim() || "empty",
       });
       return;
@@ -34,20 +34,31 @@ const Searchbar = () => {
 
     try {
       setSubmitting(true);
-      await axios.post(`${backendUrl}/api/log`, {
+      const dbLogres = await axios.post(`${backendUrl}/api/log`, {
         user_id: username.trim() || "empty",
       });
+      const logId = dbLogres.data.log.id;
       const res = await axios.get(`${backendUrl}/${enocoded_username.trim()}`, { timeout: 5000 });
       setError('');
-      navigate(`/analyze/${username.trim()}`, { state: { data: res.data } });
+      navigate(`/analyze/${username.trim()}`, { state: { data: res.data , id:logId } });
     } catch (err: any) {
-      if (err.response?.status === 400) {
-        setError(err.response.data.error );
+
+      if (err.code === 'ECONNREFUSED' || err.message.includes('Network Error')) {
+        // Backend is unreachable, likely down or network issue
+        setError("Server is currently unreachable. Please try again later.");
       } else if (!err.response) {
-        setError("Server busy, Please try once again.");
+        // No response from server but no specific error code (network timeout, etc)
+        setError("Server is busy or unreachable. Please try again shortly.");
+      } else if (err.response.status === 400) {
+        // Bad request, likely user input error
+        setError(err.response.data.error || "Bad request. Please check your input.");
+      } else if (err.response.status === 404) {
+        setError("Username Not Found, Please check your username.");
+      } else if (err.response.status === 500) {
+        setError("Internal Server Error, Please try again later.");
       } else {
-        setError("Unexpected error occurred. Try again later.");
-      }
+        setError("An unexpected error occurred. Please try again later.");
+      } 
       setUsername('');
       setInputKey(prev => prev + 1);
       triggerShake();
