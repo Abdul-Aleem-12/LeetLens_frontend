@@ -10,10 +10,14 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
   const {
     totalSolved,
     totalQuestions,
-    totalSubmissions,
     submissionCalendar,
   } = data;
 
+const totalSubmissions = Object.values(submissionCalendar || {}).reduce(
+  (sum, count) => sum + (typeof count === "number" ? count : Number(count)),
+  0
+);
+  
   const submissionData = Object.entries(submissionCalendar || {})
     .map(([timestamp, count]) => ({
       date: new Date(Number(timestamp) * 1000),

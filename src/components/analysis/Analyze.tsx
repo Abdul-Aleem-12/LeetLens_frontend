@@ -9,7 +9,6 @@ import MostSolved from './MostSolved';
 import Topic from './Topic';
 import TopicDataBars from './TopicDataBars';
 import type { LeetCodeData } from '../../LeetCodeData';
-import Radar from './Radar';
 import ContestStats from './ContestStats';
 import AiSummaryPanel from './AiSummary';
 import StarRatingFeedback from './StarRatingFeedback';
@@ -72,7 +71,6 @@ const Analyze = () => {
             <MostSolved skills={data.skills} />
           </div>
           <TopicDataBars skills={data.skills} />
-          <Radar skills={data.skills} />
         </>
       ) : null}
       <Score skills={data.skills} /> 
