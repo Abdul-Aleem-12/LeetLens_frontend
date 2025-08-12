@@ -45,11 +45,6 @@ const StarRatingFeedback: React.FC<StarRatingFeedbackProps> = ({userId}) => {
     setSuccessMessage('');
 
     try {
-      console.log('User Review Submitted:', {
-        ratingUI,
-        ratingFunc,
-        feedback: feedback.trim(),
-      });
       await axios.post(`${backendUrl}/api/feedback`, {
         user_id: userId,
         rating_ui: ratingUI,
