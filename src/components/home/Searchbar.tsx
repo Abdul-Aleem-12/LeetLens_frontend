@@ -45,17 +45,17 @@ const Searchbar = () => {
 
       if (err.code === 'ECONNREFUSED' || err.message.includes('Network Error')) {
         // Backend is unreachable, likely down or network issue
-        setError("Server is currently unreachable. Please try again later.");
+        setError("Server is currently unreachable,try again later.");
       } else if (!err.response) {
         // No response from server but no specific error code (network timeout, etc)
-        setError("Server is busy or unreachable. Please try again shortly.");
+        setError("Server is busy or unreachable,try again shortly.");
       } else if (err.response.status === 400) {
         // Bad request, likely user input error
         setError(err.response.data.error || "Bad request. Please check your input.");
       } else if (err.response.status === 404) {
-        setError("Username Not Found, Please check your username.");
+        setError("Username Not Found,check your username.");
       } else if (err.response.status === 500) {
-        setError("Internal Server Error, Please try again later.");
+        setError("Internal Server Error,try again later.");
       } else {
         setError("An unexpected error occurred. Please try again later.");
       } 
