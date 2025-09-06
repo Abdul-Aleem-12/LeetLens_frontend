@@ -55,7 +55,7 @@ const Searchbar = () => {
       } else if (err.response.status === 404) {
         setError("Username Not Found,check your username.");
       } else if (err.response.status === 500) {
-        setError("Internal Server Error,try again later.");
+        setError("Server busy, try again.");
       } else {
         setError("An unexpected error occurred. Please try again later.");
       } 
